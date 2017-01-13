@@ -34,14 +34,15 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.setProgramButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.fileNameView = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.タグ抽出設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decideChangeNameButton = new System.Windows.Forms.Button();
             this.extractTagButton = new System.Windows.Forms.Button();
             this.configComboBox = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.fileNameView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,14 +96,16 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "出力ファイル名のフォーマット";
             // 
-            // dataGridView1
+            // fileNameView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 170);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 21;
-            this.dataGridView1.Size = new System.Drawing.Size(785, 359);
-            this.dataGridView1.TabIndex = 8;
+            this.fileNameView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.fileNameView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1});
+            this.fileNameView.Location = new System.Drawing.Point(13, 170);
+            this.fileNameView.Name = "fileNameView";
+            this.fileNameView.RowTemplate.Height = 21;
+            this.fileNameView.Size = new System.Drawing.Size(785, 359);
+            this.fileNameView.TabIndex = 8;
             // 
             // menuStrip1
             // 
@@ -154,6 +157,11 @@
             this.configComboBox.Size = new System.Drawing.Size(121, 20);
             this.configComboBox.TabIndex = 12;
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
+            // 
             // Top
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -163,7 +171,7 @@
             this.Controls.Add(this.configComboBox);
             this.Controls.Add(this.extractTagButton);
             this.Controls.Add(this.decideChangeNameButton);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.fileNameView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.setProgramButton);
             this.Controls.Add(this.textBox1);
@@ -174,7 +182,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Top";
             this.Text = "FileTagManager";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileNameView)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -190,13 +198,14 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button setProgramButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView fileNameView;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
         private System.Windows.Forms.Button decideChangeNameButton;
         private System.Windows.Forms.Button extractTagButton;
         private System.Windows.Forms.ComboBox configComboBox;
         private System.Windows.Forms.ToolStripMenuItem タグ抽出設定ToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
     }
 }
 
