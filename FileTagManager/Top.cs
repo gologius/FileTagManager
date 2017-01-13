@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,20 +31,37 @@ namespace FileTagManager
 
         private void dirOpenButton_Click(object sender, EventArgs e)
         {
-            var Dialog = new CommonOpenFileDialog();
-            // フォルダーを開く設定に
-            Dialog.IsFolderPicker = true;
-            // 読み取り専用フォルダ/コントロールパネルは開かない
-            Dialog.EnsureReadOnly = false;
-            Dialog.AllowNonFileSystemItems = false;
-            // パス指定
-            Dialog.DefaultDirectory = Application.StartupPath;
-            // 開く
-            var Result = Dialog.ShowDialog();
-            // もし開かれているなら
+            //フォルダを開くダイアログの準備
+            var dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;  // フォルダーを開く設定に
+            dialog.EnsureReadOnly = false;
+            dialog.AllowNonFileSystemItems = false;
+            dialog.DefaultDirectory = Application.StartupPath;
+            
+            //フォルダを開く
+            var Result = dialog.ShowDialog();
             if (Result == CommonFileDialogResult.Ok)
             {
-                // ここでいろいろする（開いたフォルダはDialog.FileNameで取得）
+                //
+                this.Text = "File Tag Manager - " + dialog.FileName;
+                dirPathText.Text = dialog.FileName;
+
+                setFileNameView(dialog.FileName);
+            }
+        }
+
+        private void setFileNameView(string selectPath)
+        {
+            //表を初期化
+            fileNameView.Rows.Clear();
+
+            //指定パスにあるファイルを取得する
+            var fullpaths = System.IO.Directory.GetFiles(selectPath, "*");
+            foreach (var f in fullpaths)
+            {
+                //行をset
+                fileNameView.Rows.Add(Path.GetFileName(f));
+
             }
         }
     }
