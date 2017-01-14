@@ -19,11 +19,6 @@ namespace FileTagManager
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void 設定ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -63,6 +58,16 @@ namespace FileTagManager
                 fileNameView.Rows.Add(Path.GetFileName(f));
 
             }
+        }
+
+        private void goTagConfigButton_Click(object sender, EventArgs e)
+        {
+            //タグ設定フォームを生成
+            TagConfig form = new TagConfig();
+            form.ShowDialog(this); //編集終了までTOPには戻らない
+            form.Dispose();
+
+            //todo タグ編集内容を反映
         }
     }
 }

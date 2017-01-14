@@ -38,13 +38,12 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.タグ抽出設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decideChangeNameButton = new System.Windows.Forms.Button();
             this.extractTagButton = new System.Windows.Forms.Button();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.goTagConfigButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileNameView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -135,11 +134,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.設定ToolStripMenuItem,
-            this.タグ抽出設定ToolStripMenuItem});
+            this.設定ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(180, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(95, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -149,12 +147,6 @@
             this.設定ToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.設定ToolStripMenuItem.Text = "設定(未実装)";
             this.設定ToolStripMenuItem.Click += new System.EventHandler(this.設定ToolStripMenuItem_Click);
-            // 
-            // タグ抽出設定ToolStripMenuItem
-            // 
-            this.タグ抽出設定ToolStripMenuItem.Name = "タグ抽出設定ToolStripMenuItem";
-            this.タグ抽出設定ToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
-            this.タグ抽出設定ToolStripMenuItem.Text = "タグ抽出設定";
             // 
             // decideChangeNameButton
             // 
@@ -199,7 +191,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.goTagConfigButton);
             this.groupBox1.Controls.Add(this.checkedListBox1);
             this.groupBox1.Controls.Add(this.extractTagButton);
             this.groupBox1.Location = new System.Drawing.Point(13, 101);
@@ -208,15 +200,6 @@
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "抽出するタグを指定";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 49);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(133, 25);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "タグ編集";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -228,6 +211,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(810, 32);
             this.panel1.TabIndex = 14;
+            // 
+            // goTagConfigButton
+            // 
+            this.goTagConfigButton.Location = new System.Drawing.Point(8, 50);
+            this.goTagConfigButton.Name = "goTagConfigButton";
+            this.goTagConfigButton.Size = new System.Drawing.Size(128, 23);
+            this.goTagConfigButton.TabIndex = 13;
+            this.goTagConfigButton.Text = "タグ編集";
+            this.goTagConfigButton.UseVisualStyleBackColor = true;
+            this.goTagConfigButton.Click += new System.EventHandler(this.goTagConfigButton_Click);
             // 
             // Top
             // 
@@ -269,12 +262,11 @@
         private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
         private System.Windows.Forms.Button decideChangeNameButton;
         private System.Windows.Forms.Button extractTagButton;
-        private System.Windows.Forms.ToolStripMenuItem タグ抽出設定ToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button goTagConfigButton;
     }
 }
 
