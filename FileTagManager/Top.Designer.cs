@@ -31,19 +31,24 @@
             this.dirOpenButton = new System.Windows.Forms.Button();
             this.dirPathText = new System.Windows.Forms.TextBox();
             this.formatText = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.selectProgramPathText = new System.Windows.Forms.TextBox();
             this.setProgramButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameView = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.タグ抽出設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decideChangeNameButton = new System.Windows.Forms.Button();
             this.extractTagButton = new System.Windows.Forms.Button();
-            this.configComboBox = new System.Windows.Forms.ComboBox();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.fileNameView)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dirOpenButton
@@ -58,6 +63,8 @@
             // 
             // dirPathText
             // 
+            this.dirPathText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dirPathText.Location = new System.Drawing.Point(165, 27);
             this.dirPathText.Name = "dirPathText";
             this.dirPathText.ReadOnly = true;
@@ -66,21 +73,25 @@
             // 
             // formatText
             // 
-            this.formatText.Location = new System.Drawing.Point(165, 123);
+            this.formatText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.formatText.Location = new System.Drawing.Point(296, 5);
             this.formatText.Name = "formatText";
-            this.formatText.Size = new System.Drawing.Size(633, 19);
+            this.formatText.Size = new System.Drawing.Size(511, 19);
             this.formatText.TabIndex = 3;
             // 
-            // textBox1
+            // selectProgramPathText
             // 
-            this.textBox1.Location = new System.Drawing.Point(165, 85);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(633, 19);
-            this.textBox1.TabIndex = 5;
+            this.selectProgramPathText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectProgramPathText.Location = new System.Drawing.Point(164, 56);
+            this.selectProgramPathText.Name = "selectProgramPathText";
+            this.selectProgramPathText.Size = new System.Drawing.Size(634, 19);
+            this.selectProgramPathText.TabIndex = 5;
             // 
             // setProgramButton
             // 
-            this.setProgramButton.Location = new System.Drawing.Point(12, 83);
+            this.setProgramButton.Location = new System.Drawing.Point(12, 54);
             this.setProgramButton.Name = "setProgramButton";
             this.setProgramButton.Size = new System.Drawing.Size(146, 23);
             this.setProgramButton.TabIndex = 6;
@@ -90,7 +101,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 126);
+            this.label1.Location = new System.Drawing.Point(155, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(135, 12);
             this.label1.TabIndex = 7;
@@ -98,23 +109,37 @@
             // 
             // fileNameView
             // 
+            this.fileNameView.AllowUserToAddRows = false;
+            this.fileNameView.AllowUserToDeleteRows = false;
+            this.fileNameView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fileNameView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.fileNameView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.fileNameView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1});
-            this.fileNameView.Location = new System.Drawing.Point(13, 170);
+            this.fileNameView.Location = new System.Drawing.Point(164, 101);
             this.fileNameView.Name = "fileNameView";
             this.fileNameView.RowTemplate.Height = 21;
-            this.fileNameView.Size = new System.Drawing.Size(785, 359);
+            this.fileNameView.Size = new System.Drawing.Size(634, 507);
             this.fileNameView.TabIndex = 8;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.設定ToolStripMenuItem,
             this.タグ抽出設定ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(810, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(180, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -133,7 +158,7 @@
             // 
             // decideChangeNameButton
             // 
-            this.decideChangeNameButton.Location = new System.Drawing.Point(12, 141);
+            this.decideChangeNameButton.Location = new System.Drawing.Point(3, 3);
             this.decideChangeNameButton.Name = "decideChangeNameButton";
             this.decideChangeNameButton.Size = new System.Drawing.Size(146, 23);
             this.decideChangeNameButton.TabIndex = 10;
@@ -142,40 +167,78 @@
             // 
             // extractTagButton
             // 
-            this.extractTagButton.Location = new System.Drawing.Point(12, 54);
+            this.extractTagButton.Location = new System.Drawing.Point(8, 18);
             this.extractTagButton.Name = "extractTagButton";
-            this.extractTagButton.Size = new System.Drawing.Size(146, 23);
+            this.extractTagButton.Size = new System.Drawing.Size(131, 25);
             this.extractTagButton.TabIndex = 11;
-            this.extractTagButton.Text = "ファイル名からタグを抽出";
+            this.extractTagButton.Text = "タグ抽出";
             this.extractTagButton.UseVisualStyleBackColor = true;
             // 
-            // configComboBox
+            // checkedListBox1
             // 
-            this.configComboBox.FormattingEnabled = true;
-            this.configComboBox.Location = new System.Drawing.Point(165, 56);
-            this.configComboBox.Name = "configComboBox";
-            this.configComboBox.Size = new System.Drawing.Size(121, 20);
-            this.configComboBox.TabIndex = 12;
+            this.checkedListBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.checkedListBox1.Location = new System.Drawing.Point(6, 83);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(133, 424);
+            this.checkedListBox1.TabIndex = 12;
             // 
-            // Column1
+            // groupBox1
             // 
-            this.Column1.HeaderText = "Column1";
-            this.Column1.Name = "Column1";
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.checkedListBox1);
+            this.groupBox1.Controls.Add(this.extractTagButton);
+            this.groupBox1.Location = new System.Drawing.Point(13, 101);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(145, 516);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "抽出するタグを指定";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 49);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(133, 25);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "タグ編集";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.decideChangeNameButton);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.formatText);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 623);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(810, 32);
+            this.panel1.TabIndex = 14;
             // 
             // Top
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(810, 541);
-            this.Controls.Add(this.configComboBox);
-            this.Controls.Add(this.extractTagButton);
-            this.Controls.Add(this.decideChangeNameButton);
+            this.ClientSize = new System.Drawing.Size(810, 655);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.fileNameView);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.setProgramButton);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.formatText);
+            this.Controls.Add(this.selectProgramPathText);
             this.Controls.Add(this.dirPathText);
             this.Controls.Add(this.dirOpenButton);
             this.Controls.Add(this.menuStrip1);
@@ -185,6 +248,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileNameView)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,7 +261,7 @@
         private System.Windows.Forms.Button dirOpenButton;
         private System.Windows.Forms.TextBox dirPathText;
         private System.Windows.Forms.TextBox formatText;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox selectProgramPathText;
         private System.Windows.Forms.Button setProgramButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView fileNameView;
@@ -203,9 +269,12 @@
         private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
         private System.Windows.Forms.Button decideChangeNameButton;
         private System.Windows.Forms.Button extractTagButton;
-        private System.Windows.Forms.ComboBox configComboBox;
         private System.Windows.Forms.ToolStripMenuItem タグ抽出設定ToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
