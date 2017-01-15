@@ -40,10 +40,10 @@
             this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decideChangeNameButton = new System.Windows.Forms.Button();
             this.extractTagButton = new System.Windows.Forms.Button();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.useTagCheckedList = new System.Windows.Forms.CheckedListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.goTagConfigButton = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.fileNameView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -166,13 +166,13 @@
             this.extractTagButton.Text = "タグ抽出";
             this.extractTagButton.UseVisualStyleBackColor = true;
             // 
-            // checkedListBox1
+            // useTagCheckedList
             // 
-            this.checkedListBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.useTagCheckedList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
+            this.useTagCheckedList.FormattingEnabled = true;
+            this.useTagCheckedList.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
@@ -182,17 +182,17 @@
             "6",
             "7",
             "8"});
-            this.checkedListBox1.Location = new System.Drawing.Point(6, 83);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(133, 424);
-            this.checkedListBox1.TabIndex = 12;
+            this.useTagCheckedList.Location = new System.Drawing.Point(6, 83);
+            this.useTagCheckedList.Name = "useTagCheckedList";
+            this.useTagCheckedList.Size = new System.Drawing.Size(133, 424);
+            this.useTagCheckedList.TabIndex = 12;
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.goTagConfigButton);
-            this.groupBox1.Controls.Add(this.checkedListBox1);
+            this.groupBox1.Controls.Add(this.useTagCheckedList);
             this.groupBox1.Controls.Add(this.extractTagButton);
             this.groupBox1.Location = new System.Drawing.Point(13, 101);
             this.groupBox1.Name = "groupBox1";
@@ -200,6 +200,16 @@
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "抽出するタグを指定";
+            // 
+            // goTagConfigButton
+            // 
+            this.goTagConfigButton.Location = new System.Drawing.Point(8, 50);
+            this.goTagConfigButton.Name = "goTagConfigButton";
+            this.goTagConfigButton.Size = new System.Drawing.Size(128, 23);
+            this.goTagConfigButton.TabIndex = 13;
+            this.goTagConfigButton.Text = "タグ編集";
+            this.goTagConfigButton.UseVisualStyleBackColor = true;
+            this.goTagConfigButton.Click += new System.EventHandler(this.goTagConfigButton_Click);
             // 
             // panel1
             // 
@@ -211,16 +221,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(810, 32);
             this.panel1.TabIndex = 14;
-            // 
-            // goTagConfigButton
-            // 
-            this.goTagConfigButton.Location = new System.Drawing.Point(8, 50);
-            this.goTagConfigButton.Name = "goTagConfigButton";
-            this.goTagConfigButton.Size = new System.Drawing.Size(128, 23);
-            this.goTagConfigButton.TabIndex = 13;
-            this.goTagConfigButton.Text = "タグ編集";
-            this.goTagConfigButton.UseVisualStyleBackColor = true;
-            this.goTagConfigButton.Click += new System.EventHandler(this.goTagConfigButton_Click);
             // 
             // Top
             // 
@@ -263,7 +263,7 @@
         private System.Windows.Forms.Button decideChangeNameButton;
         private System.Windows.Forms.Button extractTagButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox useTagCheckedList;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button goTagConfigButton;
