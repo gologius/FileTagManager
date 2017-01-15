@@ -173,11 +173,13 @@
             // 
             // tagComboBox
             // 
+            this.tagComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tagComboBox.FormattingEnabled = true;
             this.tagComboBox.Location = new System.Drawing.Point(7, 19);
             this.tagComboBox.Name = "tagComboBox";
             this.tagComboBox.Size = new System.Drawing.Size(150, 20);
             this.tagComboBox.TabIndex = 20;
+            this.tagComboBox.SelectedIndexChanged += new System.EventHandler(this.tagComboBox_SelectedIndexChanged);
             // 
             // editTagButton
             // 

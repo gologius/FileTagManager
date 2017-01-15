@@ -18,13 +18,13 @@ namespace FileTagManager
 
         private TagList tagList;
         private int selectTagIndex = -1;
-       
+
         public TagConfig()
         {
             InitializeComponent();
 
             tagList = new TagList(tagFilePath); //ファイルからデータを読み込む
-            
+
             updateTagComboBox();
             updateTagInfo(tagComboBox.SelectedIndex);
         }
@@ -45,11 +45,13 @@ namespace FileTagManager
         {
             if (index < 0 || index > tagList.tags.Count)
                 return;
-            
 
+            Tag tag = tagList.tags[index]; 
+
+            regexpText.Text = tag.regex; //抽出用正規表現の更新
+
+            //置換表の更新
             replaceTextsView.Rows.Clear(); //全部クリア
-
-            Tag tag = tagList.tags[index];
             for (int i = 0; i < tag.replaceTexts.Count; i++)
             {
                 replaceTextsView.Rows.Add(
@@ -66,21 +68,6 @@ namespace FileTagManager
                 MessageBoxButtons.OK);
         }
 
-        private int getSelectDataGridRowIndex(ListView view)
-        {
-            int select_index = -1;
-
-            //選択しているtagのindexを取り出す
-            //memo プロパティのMultiSelectをFalseにしておくべき
-            foreach (int i in view.SelectedIndices)
-            {
-                select_index = i;
-                break; //一つしか使わないので．特にMultiSelect=Falseにした場合
-            }
-
-            return select_index;
-        }
-
         //##############################################################################################################
 
         //編集終了時
@@ -94,8 +81,8 @@ namespace FileTagManager
             string tag_name = EditTagForm.showAddTagForm();
             if (tag_name.Equals(""))
                 return;
-        
-            
+
+
             tagList.tags.Add(new Tag(tag_name));
             updateTagComboBox();
 
@@ -134,7 +121,7 @@ namespace FileTagManager
             }
         }
 
-        private void tagListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        private void tagComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //変更前に選択していたtagのreplaceTextsViewの内容を保存する
             if (selectTagIndex != -1)
@@ -149,25 +136,22 @@ namespace FileTagManager
                 tag.replacedTexts.Clear();
                 foreach (var row in replaceTextsView.Rows.Cast<DataGridViewRow>())
                 {
-                    string replace_text = "";
-                    string replaced_text = "";
-                    if (row.Cells[REPLACE_NAME].Value != null)
-                        replace_text = row.Cells[REPLACE_NAME].Value.ToString();
-                    if (row.Cells[REPLACED_NAME].Value != null)
-                        replaced_text = row.Cells[REPLACED_NAME].Value.ToString();
+                    if (row.Cells[REPLACE_NAME].Value == null || row.Cells[REPLACED_NAME].Value == null)
+                        continue;
 
+                    string replace_text = row.Cells[REPLACE_NAME].Value.ToString();
+                    string replaced_text = row.Cells[REPLACED_NAME].Value.ToString();
                     tag.replaceTexts.Add(replace_text);
                     tag.replacedTexts.Add(replaced_text);
-                    debugMsgBox(replace_text);
                 }
             }
 
-            selectTagIndex = tagComboBox.SelectedIndex;
-            
+            selectTagIndex = tagComboBox.SelectedIndex; //インデックスの更新
+
             //表示の更新
-            updateTagInfo(selectTagIndex);
+            updateTagInfo(selectTagIndex); 
         }
 
-       
+
     }
 }
