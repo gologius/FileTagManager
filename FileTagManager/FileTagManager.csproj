@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddTagForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddTagForm.Designer.cs">
+      <DependentUpon>AddTagForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tag.cs" />
     <Compile Include="Top.cs">
       <SubType>Form</SubType>
@@ -65,6 +71,9 @@
     <Compile Include="TagConfig.Designer.cs">
       <DependentUpon>TagConfig.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddTagForm.resx">
+      <DependentUpon>AddTagForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TagConfig.resx">
       <DependentUpon>TagConfig.cs</DependentUpon>
     </EmbeddedResource>
