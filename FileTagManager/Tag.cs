@@ -11,6 +11,7 @@ namespace FileTagManager
     public class Tag
     {
         public string name = "";
+        public string regex = "";
         public List<string> replaceTexts = new List<string>(); //置換対象の文字列リスト
         public List<string> replacedTexts = new List<string>(); //置換後の文字列リスト
 

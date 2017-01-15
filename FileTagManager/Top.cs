@@ -19,10 +19,33 @@ namespace FileTagManager
             InitializeComponent();
         }
 
+
+        private void setFileNameView(string selectPath)
+        {
+            //表を初期化
+            fileNameView.Rows.Clear();
+
+            //指定パスにあるファイルを取得する
+            var fullpaths = System.IO.Directory.GetFiles(selectPath, "*");
+            foreach (var f in fullpaths)
+            {
+                //行をset
+                fileNameView.Rows.Add(Path.GetFileName(f));
+
+            }
+        }
+
+        private void updateUseTagList(){
+
+        }
+
+        //##############################################################################################################
+
         private void 設定ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
+
 
         private void dirOpenButton_Click(object sender, EventArgs e)
         {
@@ -45,21 +68,6 @@ namespace FileTagManager
             }
         }
 
-        private void setFileNameView(string selectPath)
-        {
-            //表を初期化
-            fileNameView.Rows.Clear();
-
-            //指定パスにあるファイルを取得する
-            var fullpaths = System.IO.Directory.GetFiles(selectPath, "*");
-            foreach (var f in fullpaths)
-            {
-                //行をset
-                fileNameView.Rows.Add(Path.GetFileName(f));
-
-            }
-        }
-
         private void goTagConfigButton_Click(object sender, EventArgs e)
         {
             //タグ設定フォームを生成
@@ -67,7 +75,7 @@ namespace FileTagManager
             form.ShowDialog(this); //編集終了までTOPには戻らない
             form.Dispose();
 
-            //todo タグ編集内容を反映
+            updateUseTagList();//タグ編集内容を反映
         }
     }
 }

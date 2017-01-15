@@ -13,11 +13,11 @@ namespace FileTagManager
     public partial class TagConfig : Form
     {
         private string tagFilePath = @"taglist.xml"; //todo configへ
-        private const int TAG_NAME = 0;
         private const int REPLACE_NAME = 0;
         private const int REPLACED_NAME = 1;
 
         private TagList tagList;
+        private int selectTagIndex = -1;
        
         public TagConfig()
         {
@@ -25,26 +25,27 @@ namespace FileTagManager
 
             tagList = new TagList(tagFilePath); //ファイルからデータを読み込む
             
-            updateTagListView();
-            updateReplaceView(getSelectDataGridRowIndex(tagListView));
+            updateTagComboBox();
+            updateTagInfo(tagComboBox.SelectedIndex);
         }
 
         //表示の更新
-        private void updateTagListView()
+        private void updateTagComboBox()
         {
-            tagListView.Rows.Clear(); //全部クリア
+            tagComboBox.Items.Clear(); //全部クリア
 
             foreach (var tag in tagList.tags)
             {
-                tagListView.Rows.Add(tag.name);
+                tagComboBox.Items.Add(tag.name);
             }
         }
 
         //表示の更新
-        private void updateReplaceView(int index)
+        private void updateTagInfo(int index)
         {
-            if (index < 0 || index <= tagList.tags.Count)
+            if (index < 0 || index > tagList.tags.Count)
                 return;
+            
 
             replaceTextsView.Rows.Clear(); //全部クリア
 
@@ -57,25 +58,6 @@ namespace FileTagManager
             }
         }
 
-        //編集終了時
-        private void TagConfig_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            /*
-            TagList tagList = new TagList(); //ここにデータを挿入する
-
-            //タグ名の読み取りと挿入
-            foreach (var row in tagListView.Rows.Cast<DataGridViewRow>())
-            {
-                foreach (var cell in row.Cells.Cast<DataGridViewCell>())
-                {
-                    if (cell.Value != null)
-                        tagList.tags.Add(new Tag(cell.Value.ToString()));
-                }
-            }
-            */
-            tagList.writeTagListFile(tagFilePath);
-        }
-
         private void debugMsgBox(string str)
         {
             DialogResult result = MessageBox.Show(
@@ -84,15 +66,15 @@ namespace FileTagManager
                 MessageBoxButtons.OK);
         }
 
-        private int getSelectDataGridRowIndex(DataGridView view)
+        private int getSelectDataGridRowIndex(ListView view)
         {
             int select_index = -1;
 
             //選択しているtagのindexを取り出す
             //memo プロパティのMultiSelectをFalseにしておくべき
-            foreach (var row in view.SelectedRows.Cast<DataGridViewRow>())
+            foreach (int i in view.SelectedIndices)
             {
-                select_index = row.Index;
+                select_index = i;
                 break; //一つしか使わないので．特にMultiSelect=Falseにした場合
             }
 
@@ -101,15 +83,68 @@ namespace FileTagManager
 
         //##############################################################################################################
 
-        private void tagListView_SelectionChanged(object sender, EventArgs e)
+        //編集終了時
+        private void TagConfig_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            tagList.writeTagListFile(tagFilePath);
+        }
+
+        private void addTagButton_Click(object sender, EventArgs e)
+        {
+            string tag_name = EditTagForm.showAddTagForm();
+            if (tag_name.Equals(""))
+                return;
+        
+            
+            tagList.tags.Add(new Tag(tag_name));
+            updateTagComboBox();
+
+        }
+
+        private void editTagButton_Click(object sender, EventArgs e)
+        {
+            //選択している行を抽出
+            int select_index = tagComboBox.SelectedIndex;
+            if (select_index == -1)
+                return;
+
+            //確認，削除，更新
+            string edit_text = tagList.tags[select_index].name;
+            bool do_delete = false;
+            EditTagForm.showEditTagForm(ref edit_text, out do_delete);
+
+            //削除時
+            if (do_delete)
+            {
+                DialogResult result = MessageBox.Show(
+                  "タグを削除します",
+                  "タグ削除の確認",
+                  MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
+                {
+                    tagList.tags.RemoveAt(select_index);
+                    updateTagComboBox();
+                }
+            }
+            //タグ名変更時
+            else
+            {
+                tagList.tags[select_index].name = edit_text;
+                updateTagComboBox();
+            }
+        }
+
+        private void tagListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             //変更前に選択していたtagのreplaceTextsViewの内容を保存する
-
-
-            int select_index = getSelectDataGridRowIndex(tagListView);
-            if (select_index != -1)
+            if (selectTagIndex != -1)
             {
-                Tag tag = tagList.tags[select_index];
+                Tag tag = tagList.tags[selectTagIndex];
+
+                //抽出正規表現の更新
+                tag.regex = regexpText.Text;
+
+                //置換文字列の更新
                 tag.replaceTexts.Clear(); //初期化
                 tag.replacedTexts.Clear();
                 foreach (var row in replaceTextsView.Rows.Cast<DataGridViewRow>())
@@ -123,42 +158,14 @@ namespace FileTagManager
 
                     tag.replaceTexts.Add(replace_text);
                     tag.replacedTexts.Add(replaced_text);
+                    debugMsgBox(replace_text);
                 }
             }
 
-            //表示の更新
-            updateReplaceView(select_index);
-        }
-
-        private void addTagButton_Click(object sender, EventArgs e)
-        {
-            string tag_name = AddTagForm.showConfirmForm();
-            if (tag_name.Equals(""))
-                return;
-        
+            selectTagIndex = tagComboBox.SelectedIndex;
             
-            tagList.tags.Add(new Tag(tag_name));
-            updateTagListView();
-
-        }
-
-        private void deleteTagButton_Click(object sender, EventArgs e)
-        {
-            //選択している行を抽出
-            int select_index = getSelectDataGridRowIndex(tagListView);
-            if (select_index == -1)
-                return;
-
-            //確認，削除，更新
-            DialogResult result = MessageBox.Show(
-              "タグを削除します",
-              "タグ削除の確認",
-              MessageBoxButtons.OKCancel);
-            if (result == DialogResult.OK)
-            {
-                tagList.tags.RemoveAt(select_index);
-                updateTagListView();
-            }
+            //表示の更新
+            updateTagInfo(selectTagIndex);
         }
 
        

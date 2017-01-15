@@ -40,17 +40,15 @@
             this.replaceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.replaced = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tagListView = new System.Windows.Forms.DataGridView();
-            this.tagName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tagComboBox = new System.Windows.Forms.ComboBox();
+            this.editTagButton = new System.Windows.Forms.Button();
             this.addTagButton = new System.Windows.Forms.Button();
-            this.deleteTagButton = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.regexpText = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.replaceTextsView)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tagListView)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,9 +59,9 @@
             this.groupBox2.Controls.Add(this.testResultText);
             this.groupBox2.Controls.Add(this.textText);
             this.groupBox2.Controls.Add(this.extractButton);
-            this.groupBox2.Location = new System.Drawing.Point(12, 330);
+            this.groupBox2.Location = new System.Drawing.Point(12, 407);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(696, 71);
+            this.groupBox2.Size = new System.Drawing.Size(526, 71);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "テスト";
@@ -94,7 +92,7 @@
             this.testResultText.Location = new System.Drawing.Point(122, 47);
             this.testResultText.Name = "testResultText";
             this.testResultText.ReadOnly = true;
-            this.testResultText.Size = new System.Drawing.Size(569, 19);
+            this.testResultText.Size = new System.Drawing.Size(399, 19);
             this.testResultText.TabIndex = 2;
             // 
             // textText
@@ -104,7 +102,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textText.Location = new System.Drawing.Point(122, 20);
             this.textText.Name = "textText";
-            this.textText.Size = new System.Drawing.Size(568, 19);
+            this.textText.Size = new System.Drawing.Size(398, 19);
             this.textText.TabIndex = 1;
             // 
             // extractButton
@@ -120,7 +118,7 @@
             // 
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.replaceTextsView);
-            this.groupBox3.Location = new System.Drawing.Point(182, 67);
+            this.groupBox3.Location = new System.Drawing.Point(12, 144);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(526, 257);
             this.groupBox3.TabIndex = 19;
@@ -163,59 +161,37 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.deleteTagButton);
+            this.groupBox1.Controls.Add(this.tagComboBox);
+            this.groupBox1.Controls.Add(this.editTagButton);
             this.groupBox1.Controls.Add(this.addTagButton);
-            this.groupBox1.Controls.Add(this.tagListView);
             this.groupBox1.Location = new System.Drawing.Point(12, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(164, 311);
+            this.groupBox1.Size = new System.Drawing.Size(164, 71);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "タグを選択";
             // 
-            // tagListView
+            // tagComboBox
             // 
-            this.tagListView.AllowUserToAddRows = false;
-            this.tagListView.AllowUserToDeleteRows = false;
-            this.tagListView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.tagListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tagListView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.tagName});
-            this.tagListView.Location = new System.Drawing.Point(6, 19);
-            this.tagListView.MultiSelect = false;
-            this.tagListView.Name = "tagListView";
-            this.tagListView.RowTemplate.Height = 21;
-            this.tagListView.Size = new System.Drawing.Size(152, 256);
-            this.tagListView.TabIndex = 16;
-            this.tagListView.SelectionChanged += new System.EventHandler(this.tagListView_SelectionChanged);
+            this.tagComboBox.FormattingEnabled = true;
+            this.tagComboBox.Location = new System.Drawing.Point(7, 19);
+            this.tagComboBox.Name = "tagComboBox";
+            this.tagComboBox.Size = new System.Drawing.Size(150, 20);
+            this.tagComboBox.TabIndex = 20;
             // 
-            // tagName
+            // editTagButton
             // 
-            this.tagName.HeaderText = "タグ名";
-            this.tagName.Name = "tagName";
-            this.tagName.ReadOnly = true;
-            this.tagName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.textBox1);
-            this.groupBox4.Location = new System.Drawing.Point(182, 13);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(526, 48);
-            this.groupBox4.TabIndex = 21;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "文字抽出 (正規表現)";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(6, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(514, 19);
-            this.textBox1.TabIndex = 0;
+            this.editTagButton.Location = new System.Drawing.Point(83, 45);
+            this.editTagButton.Name = "editTagButton";
+            this.editTagButton.Size = new System.Drawing.Size(75, 23);
+            this.editTagButton.TabIndex = 18;
+            this.editTagButton.Text = "タグ編集";
+            this.editTagButton.UseVisualStyleBackColor = true;
+            this.editTagButton.Click += new System.EventHandler(this.editTagButton_Click);
             // 
             // addTagButton
             // 
-            this.addTagButton.Location = new System.Drawing.Point(6, 281);
+            this.addTagButton.Location = new System.Drawing.Point(7, 45);
             this.addTagButton.Name = "addTagButton";
             this.addTagButton.Size = new System.Drawing.Size(75, 23);
             this.addTagButton.TabIndex = 17;
@@ -223,22 +199,29 @@
             this.addTagButton.UseVisualStyleBackColor = true;
             this.addTagButton.Click += new System.EventHandler(this.addTagButton_Click);
             // 
-            // deleteTagButton
+            // groupBox4
             // 
-            this.deleteTagButton.Location = new System.Drawing.Point(82, 281);
-            this.deleteTagButton.Name = "deleteTagButton";
-            this.deleteTagButton.Size = new System.Drawing.Size(75, 23);
-            this.deleteTagButton.TabIndex = 18;
-            this.deleteTagButton.Text = "タグ削除";
-            this.deleteTagButton.UseVisualStyleBackColor = true;
-            this.deleteTagButton.Click += new System.EventHandler(this.deleteTagButton_Click);
+            this.groupBox4.Controls.Add(this.regexpText);
+            this.groupBox4.Location = new System.Drawing.Point(12, 90);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(526, 48);
+            this.groupBox4.TabIndex = 21;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "文字抽出 (正規表現)";
+            // 
+            // regexpText
+            // 
+            this.regexpText.Location = new System.Drawing.Point(6, 19);
+            this.regexpText.Name = "regexpText";
+            this.regexpText.Size = new System.Drawing.Size(514, 19);
+            this.regexpText.TabIndex = 0;
             // 
             // TagConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(715, 437);
+            this.ClientSize = new System.Drawing.Size(545, 485);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -252,7 +235,6 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.replaceTextsView)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.tagListView)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
@@ -269,15 +251,14 @@
         private System.Windows.Forms.Button extractButton;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView tagListView;
         private System.Windows.Forms.DataGridView replaceTextsView;
         private System.Windows.Forms.DataGridViewTextBoxColumn replaceText;
         private System.Windows.Forms.DataGridViewTextBoxColumn replaced;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tagName;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox regexpText;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button deleteTagButton;
+        private System.Windows.Forms.Button editTagButton;
         private System.Windows.Forms.Button addTagButton;
+        private System.Windows.Forms.ComboBox tagComboBox;
     }
 }

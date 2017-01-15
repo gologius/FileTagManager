@@ -1,6 +1,6 @@
 ﻿namespace FileTagManager
 {
-    partial class AddTagForm
+    partial class EditTagForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,6 +32,7 @@
             this.okButton = new System.Windows.Forms.Button();
             this.tagNameText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.deleteButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -46,7 +47,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(116, 35);
+            this.okButton.Location = new System.Drawing.Point(35, 35);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 1;
@@ -70,18 +71,29 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "タグ名";
             // 
-            // AddTagForm
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(116, 35);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteButton.TabIndex = 4;
+            this.deleteButton.Text = "削除";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            // 
+            // EditTagForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(284, 64);
+            this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tagNameText);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
-            this.Name = "AddTagForm";
-            this.Text = "1";
+            this.Name = "EditTagForm";
+            this.Text = "タグの編集";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -93,5 +105,6 @@
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.TextBox tagNameText;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button deleteButton;
     }
 }
