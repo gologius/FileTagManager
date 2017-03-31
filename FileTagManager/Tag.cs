@@ -26,19 +26,30 @@ namespace FileTagManager
         }
     }
 
+    /// <summary>
+    /// シングルトン．
+    /// </summary>
     public class TagList
     {
+        private static TagList instance = new TagList(); //シングルトン
+        
         public int MAX_TAG_NUM = 3; //登録できる最大数
         public List<Tag> tags = new List<Tag>();
 
-        public TagList()
+        private TagList()
         {
             //XMLシリアライズでエラーを出さないために必要
         }
 
-        public TagList(string readFilepath)
+        /// <summary>
+        /// 指定されたXMLファイルを基にクラス情報を設定して，クラスを戻す．
+        /// </summary>
+        /// <param name="readFilepath">読み込むXMLファイルのパス</param>
+        /// <returns>設定後のクラス</returns>
+        public static TagList getTagList(string readFilepath)
         {
-            readTagListFile(readFilepath);
+            instance.readTagListFile(readFilepath);
+            return instance;
         }
 
         //ファイルからタグデータを読み込む
