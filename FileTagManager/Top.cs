@@ -14,9 +14,12 @@ namespace FileTagManager
 {
     public partial class Top : Form
     {
+        TagList tagList;
+
         public Top()
         {
             InitializeComponent();
+            tagList = TagList.getTagList(Config.TAGFILE_PATH);
         }
 
         /// <summary>
@@ -25,10 +28,25 @@ namespace FileTagManager
         /// <param name="selectPath">ファイルを読み込むフォルダのパス</param>
         private void setFileNameView(string selectPath)
         {
-            //表を初期化
-            fileNameView.Rows.Clear();
+            //列がない(=初回)場合は列を追加する
+            //元のファイル名表示(1列)+タグ数 
+            if (fileNameView.Columns.Count < Config.MAX_TAG_NUM + 1)
+            {
+                for (int i = 0; i < Config.MAX_TAG_NUM + 1; i++)
+                {
+                    fileNameView.Columns.Add(new DataGridViewTextBoxColumn());
+                }
 
-            //指定パスにあるファイルを取得する
+                //元のファイル名を表示する列
+                fileNameView.Columns[0].DataPropertyName = "FileName";
+                fileNameView.Columns[0].Name = "FileName";
+                fileNameView.Columns[0].HeaderText = "FileName";
+            }
+            updateHeaderText(); //ヘッダーの更新
+            
+            fileNameView.Rows.Clear(); //表を初期化
+
+            //指定パスにあるファイルを取得して，行を追加していく(列は0番目)．
             var fullpaths = System.IO.Directory.GetFiles(selectPath, "*");
             foreach (var f in fullpaths)
             {
@@ -37,8 +55,20 @@ namespace FileTagManager
             }
         }
 
-        private void updateUseTagList(){
+        public void updateHeaderText()
+        {
+            if (fileNameView.Columns.Count < Config.MAX_TAG_NUM + 1)
+                return; //列が足りない(まだ追加されていない)
 
+            //タグ表示列
+            for (int i = 0; i < Config.MAX_TAG_NUM; i++)
+            {
+                //+1は元のファイル名表示列の分
+                string tagname = tagList.tags[i].name;
+                fileNameView.Columns[i + 1].DataPropertyName = tagname;
+                fileNameView.Columns[i + 1].Name = tagname;
+                fileNameView.Columns[i + 1].HeaderText = tagname;
+            }
         }
 
         //##############################################################################################################
@@ -61,7 +91,7 @@ namespace FileTagManager
             dialog.EnsureReadOnly = false;
             dialog.AllowNonFileSystemItems = false;
             dialog.DefaultDirectory = Application.StartupPath;
-            
+
             //フォルダを開く
             var Result = dialog.ShowDialog();
             if (Result == CommonFileDialogResult.Ok)
@@ -86,7 +116,7 @@ namespace FileTagManager
             form.ShowDialog(this); //編集終了までTOPには戻らない
             form.Dispose();
 
-            updateUseTagList();//タグ編集内容を反映
+            updateHeaderText(); //タグ名が変わっている場合があるため，更新する
         }
 
         /// <summary>

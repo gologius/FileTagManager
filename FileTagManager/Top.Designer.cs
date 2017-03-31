@@ -33,9 +33,6 @@
             this.formatText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameView = new System.Windows.Forms.DataGridView();
-            this.Author = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.otherTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decideChangeNameButton = new System.Windows.Forms.Button();
@@ -95,30 +92,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fileNameView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.fileNameView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.fileNameView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Author,
-            this.title,
-            this.otherTag});
             this.fileNameView.Location = new System.Drawing.Point(12, 81);
             this.fileNameView.Name = "fileNameView";
             this.fileNameView.RowTemplate.Height = 21;
             this.fileNameView.Size = new System.Drawing.Size(1073, 536);
             this.fileNameView.TabIndex = 8;
-            // 
-            // Author
-            // 
-            this.Author.HeaderText = "Author";
-            this.Author.Name = "Author";
-            // 
-            // title
-            // 
-            this.title.HeaderText = "Title";
-            this.title.Name = "title";
-            // 
-            // otherTag
-            // 
-            this.otherTag.HeaderText = "Other Tag";
-            this.otherTag.Name = "otherTag";
             // 
             // menuStrip1
             // 
@@ -226,9 +204,6 @@
         private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
         private System.Windows.Forms.Button decideChangeNameButton;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Author;
-        private System.Windows.Forms.DataGridViewTextBoxColumn title;
-        private System.Windows.Forms.DataGridViewTextBoxColumn otherTag;
         private System.Windows.Forms.Button extractTagButton;
         private System.Windows.Forms.Button goTagConfigButton;
         private System.Windows.Forms.Label label2;
