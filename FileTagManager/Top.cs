@@ -14,7 +14,8 @@ namespace FileTagManager
 {
     public partial class Top : Form
     {
-        TagList tagList;
+        private string currentPath = "";
+        private TagList tagList;
 
         public Top()
         {
@@ -23,10 +24,21 @@ namespace FileTagManager
         }
 
         /// <summary>
-        /// 指定されたフォルダのパスから，ファイルの文字列を抽出して，表示する．
+        /// fileNameViewから値を得るためのラッパー
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <param name="colIndex"></param>
+        /// <returns></returns>
+        private string viewValue(int rowIndex, int colIndex)
+        {
+            return fileNameView.Rows[rowIndex].Cells[colIndex].Value.ToString();
+        }
+
+        /// <summary>
+        /// 指定されたフォルダのパスから，ファイルの文字列を表示する．
         /// </summary>
         /// <param name="selectPath">ファイルを読み込むフォルダのパス</param>
-        private void setFileNameView(string selectPath)
+        private void updateFileNameView(string selectPath)
         {
             //列がない(=初回)場合は列を追加する
             //元のファイル名表示(1列)+タグ数 
@@ -41,9 +53,10 @@ namespace FileTagManager
                 fileNameView.Columns[0].DataPropertyName = "FileName";
                 fileNameView.Columns[0].Name = "FileName";
                 fileNameView.Columns[0].HeaderText = "FileName";
+                fileNameView.Columns[0].ReadOnly = true;
             }
+
             updateHeaderText(); //ヘッダーの更新
-            
             fileNameView.Rows.Clear(); //表を初期化
 
             //指定パスにあるファイルを取得して，行を追加していく(列は0番目)．
@@ -53,8 +66,13 @@ namespace FileTagManager
                 //行をset
                 fileNameView.Rows.Add(Path.GetFileName(f));
             }
+
+            extractString(); //tagの設定に合わせて文字列を抽出，反映
         }
 
+        /// <summary>
+        /// Viewの列ヘッダーテキストを更新する(表の最上部の行のテキスト)
+        /// </summary>
         public void updateHeaderText()
         {
             if (fileNameView.Columns.Count < Config.MAX_TAG_NUM + 1)
@@ -71,19 +89,30 @@ namespace FileTagManager
             }
         }
 
-        //##############################################################################################################
-
-        private void 設定ToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 抽出設定を基に，文字列を抽出する．
+        /// </summary>
+        private void extractString()
         {
-
+            //全ファイル名に対してTag数分の文字列処理をする
+            for (int i = 0; i < fileNameView.Rows.Count; i++) //行
+            {
+                for (int j = 0; j < Config.MAX_TAG_NUM; j++) //タグ(列)
+                {
+                    string target = fileNameView.Rows[i].Cells[0].Value.ToString(); //ファイル名を取得
+                    fileNameView.Rows[i].Cells[j + 1].Value = tagList.tags[j].replace(target); //セルに挿入
+                }
+            }
         }
+
+        //##############################################################################################################
 
         /// <summary>
         /// 編集対象のフォルダを指定するウインドウを開く．
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dirOpenButton_Click(object sender, EventArgs e)
+        private void DirOpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //フォルダを開くダイアログの準備
             var dialog = new CommonOpenFileDialog();
@@ -98,9 +127,9 @@ namespace FileTagManager
             {
                 //
                 this.Text = "File Tag Manager - " + dialog.FileName;
-                dirPathText.Text = dialog.FileName;
+                currentPath = dialog.FileName;
 
-                setFileNameView(dialog.FileName);
+                updateFileNameView(dialog.FileName);
             }
         }
 
@@ -109,7 +138,7 @@ namespace FileTagManager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void goTagConfigButton_Click(object sender, EventArgs e)
+        private void StringConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //タグ設定フォームを生成
             TagConfig form = new TagConfig();
@@ -120,21 +149,55 @@ namespace FileTagManager
         }
 
         /// <summary>
-        /// 抽出設定を基に，文字列を抽出する．
+        /// フォーマット文字列を基に，ファイル名を変更する
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void extractTagButton_Click(object sender, EventArgs e)
+        private void decideChangeNameButton_Click(object sender, EventArgs e)
         {
-            //全ファイル名に対してTag数分の文字列処理をする
-            for (int i = 0; i < fileNameView.Rows.Count; i++) //行
+            //確認ダイアログ
+            DialogResult decide = MessageBox.Show(
+                "ファイルの名前を一括で変更しますか？",
+                "確認",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.None,
+                MessageBoxDefaultButton.Button2);
+            if (decide == DialogResult.Cancel)
+                return;
+
+
+            //選択された行だけ対象
+            foreach (DataGridViewCell c in fileNameView.SelectedCells)
             {
-                for (int j = 0; j < Config.MAX_TAG_NUM; j++) //タグ(列)
+                int select_index = c.RowIndex;
+                string result = formatText.Text; //テンプレート文字列を取り出す
+
+                //%で囲んだタグ名を，文字列に置き換える
+                foreach (Tag tag in tagList.tags)
                 {
-                    string target = fileNameView.Rows[i].Cells[0].Value.ToString(); //ファイル名を取得
-                    fileNameView.Rows[i].Cells[j + 1].Value = tagList.tags[j].replace(target); //セルに挿入
+                    string cell_string = viewValue(select_index, tagList.getTagIndex(tag.name) + 1); //+1は元のファイル名の分
+                    result = result.Replace("%" + tag.name + "%", cell_string);
                 }
+
+                //実際にファイル名を変更する
+                System.IO.File.Move(
+                    @currentPath + @"\" + viewValue(select_index, 0),
+                    @currentPath + @"\" + result);
             }
+
+            //確認ダイアログ
+            MessageBox.Show(
+                "変更が終了しました",
+                "確認",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.None,
+                MessageBoxDefaultButton.Button2);
+
+            //ファイルのパスが変わるので，表示を更新する
+            updateFileNameView(currentPath);
         }
+
+
+
     }
 }

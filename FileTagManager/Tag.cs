@@ -71,7 +71,7 @@ namespace FileTagManager
     public class TagList
     {
         private static TagList instance = new TagList(); //シングルトン
-        
+
         public int MAX_TAG_NUM = 3; //登録できる最大数
         public List<Tag> tags = new List<Tag>();
 
@@ -108,7 +108,7 @@ namespace FileTagManager
                 //最大数までタグを生成しておく
                 for (int i = 0; i < MAX_TAG_NUM; i++)
                 {
-                    tags.Add(new Tag("tag"+(i+1).ToString()));
+                    tags.Add(new Tag("tag" + (i + 1).ToString()));
                 }
 
                 writeTagListFile(filepath); //ファイルを新規に作成する
@@ -124,5 +124,17 @@ namespace FileTagManager
             sw.Close();
         }
 
+        //tag名からindexを割り出す
+        public int getTagIndex(string tagname)
+        {
+            int i = 0;
+            for (i = 0; i < tags.Count; i++)
+            {
+                if (tags[i].name.Equals(tagname))
+                    return i;
+            }
+            
+            return -1; //見つからなかった場合
+        }
     }
 }
