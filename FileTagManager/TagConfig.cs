@@ -25,7 +25,7 @@ namespace FileTagManager
         {
             InitializeComponent();
 
-            tagList = new TagList(tagFilePath); //ファイルからデータを読み込む
+            tagList = TagList.getTagList(tagFilePath);
            
             updateTagComboBox();
             updateFormInfo(tagComboBox.SelectedIndex);
