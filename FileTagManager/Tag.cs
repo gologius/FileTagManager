@@ -24,6 +24,45 @@ namespace FileTagManager
         {
             this.name = name_;
         }
+
+        /// <summary>
+        /// 文字列の抽出，置換をする
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public string replace(string target)
+        {
+            string result = target;
+
+            try
+            {
+                //正規表現を用いた文字列の抽出
+                var regexp = new System.Text.RegularExpressions.Regex(regex, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                var m = regexp.Match(result);
+                result = m.Value.ToString();
+
+
+                //文字列置換
+                for (int i = 0; i < replaceTexts.Count; i++)
+                {
+                    string before = replaceTexts[i];
+                    string after = replacedTexts[i];
+
+                    //正規表現による対象文文字列の抽出
+                    System.Text.RegularExpressions.Regex regex2 = new System.Text.RegularExpressions.Regex(before);
+                    System.Text.RegularExpressions.Match m2 = regex2.Match(result);
+                    before = m2.Value.ToString();
+
+                    //置換
+                    if (before.Length != 0)
+                        result = result.Replace(before, after);
+                }
+
+            }
+            catch { }
+
+            return result;
+        }
     }
 
     /// <summary>
