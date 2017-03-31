@@ -67,6 +67,36 @@ namespace FileTagManager
             }
         }
 
+        /// <summary>
+        /// TagListにフォームのデータを反映する．
+        /// <param name="index">更新するタグのindex</param>
+        /// </summary>
+        private void updateTagList(int index)
+        {
+            //変更前に選択していたtagのreplaceTextsViewの内容を保存する
+            if (index != -1)
+            {
+                Tag tag = tagList.tags[index];
+
+                //抽出正規表現の更新
+                tag.regex = regexpText.Text;
+
+                //置換文字列の更新
+                tag.replaceTexts.Clear(); //初期化
+                tag.replacedTexts.Clear();
+                foreach (var row in replaceTextsView.Rows.Cast<DataGridViewRow>())
+                {
+                    if (row.Cells[REPLACE_NAME].Value == null || row.Cells[REPLACED_NAME].Value == null)
+                        continue;
+
+                    string replace_text = row.Cells[REPLACE_NAME].Value.ToString();
+                    string replaced_text = row.Cells[REPLACED_NAME].Value.ToString();
+                    tag.replaceTexts.Add(replace_text);
+                    tag.replacedTexts.Add(replaced_text);
+                }
+            }
+        }
+
         private void debugMsgBox(string str)
         {
             DialogResult result = MessageBox.Show(
@@ -85,6 +115,7 @@ namespace FileTagManager
         /// <param name="e"></param>
         private void TagConfig_FormClosed(object sender, FormClosedEventArgs e)
         {
+            updateTagList(selectTagIndex); //フォームの情報を保存
             tagList.writeTagListFile(tagFilePath); //ファイルへの設定の保存
         }
 
@@ -112,28 +143,8 @@ namespace FileTagManager
         /// <param name="e"></param>
         private void tagComboBox_TextChanged(object sender, EventArgs e)
         {
-            //変更前に選択していたtagのreplaceTextsViewの内容を保存する
-            if (selectTagIndex != -1)
-            {
-                Tag tag = tagList.tags[selectTagIndex];
-
-                //抽出正規表現の更新
-                tag.regex = regexpText.Text;
-
-                //置換文字列の更新
-                tag.replaceTexts.Clear(); //初期化
-                tag.replacedTexts.Clear();
-                foreach (var row in replaceTextsView.Rows.Cast<DataGridViewRow>())
-                {
-                    if (row.Cells[REPLACE_NAME].Value == null || row.Cells[REPLACED_NAME].Value == null)
-                        continue;
-
-                    string replace_text = row.Cells[REPLACE_NAME].Value.ToString();
-                    string replaced_text = row.Cells[REPLACED_NAME].Value.ToString();
-                    tag.replaceTexts.Add(replace_text);
-                    tag.replacedTexts.Add(replaced_text);
-                }
-            }
+            //クラスにフォームの値を保存
+            updateTagList(selectTagIndex); 
 
             //更新
             selectTagIndex = tagComboBox.SelectedIndex;
