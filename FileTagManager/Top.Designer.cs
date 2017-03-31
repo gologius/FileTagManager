@@ -33,13 +33,13 @@
             this.formatText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameView = new System.Windows.Forms.DataGridView();
+            this.Author = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.otherTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decideChangeNameButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Author = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.otherTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.extractTagButton = new System.Windows.Forms.Button();
             this.goTagConfigButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -105,6 +105,21 @@
             this.fileNameView.Size = new System.Drawing.Size(1073, 536);
             this.fileNameView.TabIndex = 8;
             // 
+            // Author
+            // 
+            this.Author.HeaderText = "Author";
+            this.Author.Name = "Author";
+            // 
+            // title
+            // 
+            this.title.HeaderText = "Title";
+            this.title.Name = "title";
+            // 
+            // otherTag
+            // 
+            this.otherTag.HeaderText = "Other Tag";
+            this.otherTag.Name = "otherTag";
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -145,21 +160,6 @@
             this.panel1.Size = new System.Drawing.Size(1096, 32);
             this.panel1.TabIndex = 14;
             // 
-            // Author
-            // 
-            this.Author.HeaderText = "Author";
-            this.Author.Name = "Author";
-            // 
-            // title
-            // 
-            this.title.HeaderText = "Title";
-            this.title.Name = "title";
-            // 
-            // otherTag
-            // 
-            this.otherTag.HeaderText = "Other Tag";
-            this.otherTag.Name = "otherTag";
-            // 
             // extractTagButton
             // 
             this.extractTagButton.Location = new System.Drawing.Point(317, 50);
@@ -168,6 +168,7 @@
             this.extractTagButton.TabIndex = 11;
             this.extractTagButton.Text = "文字抽出";
             this.extractTagButton.UseVisualStyleBackColor = true;
+            this.extractTagButton.Click += new System.EventHandler(this.extractTagButton_Click);
             // 
             // goTagConfigButton
             // 

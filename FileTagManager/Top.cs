@@ -19,7 +19,10 @@ namespace FileTagManager
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// 指定されたフォルダのパスから，ファイルの文字列を抽出して，表示する．
+        /// </summary>
+        /// <param name="selectPath">ファイルを読み込むフォルダのパス</param>
         private void setFileNameView(string selectPath)
         {
             //表を初期化
@@ -31,7 +34,6 @@ namespace FileTagManager
             {
                 //行をset
                 fileNameView.Rows.Add(Path.GetFileName(f));
-
             }
         }
 
@@ -85,6 +87,16 @@ namespace FileTagManager
             form.Dispose();
 
             updateUseTagList();//タグ編集内容を反映
+        }
+
+        /// <summary>
+        /// 抽出設定を基に，文字列を抽出する．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void extractTagButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
