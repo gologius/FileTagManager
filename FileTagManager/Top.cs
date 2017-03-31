@@ -126,7 +126,15 @@ namespace FileTagManager
         /// <param name="e"></param>
         private void extractTagButton_Click(object sender, EventArgs e)
         {
-
+            //全ファイル名に対してTag数分の文字列処理をする
+            for (int i = 0; i < fileNameView.Rows.Count; i++) //行
+            {
+                for (int j = 0; j < Config.MAX_TAG_NUM; j++) //タグ(列)
+                {
+                    string target = fileNameView.Rows[i].Cells[0].Value.ToString(); //ファイル名を取得
+                    fileNameView.Rows[i].Cells[j + 1].Value = tagList.tags[j].replace(target); //セルに挿入
+                }
+            }
         }
     }
 }
