@@ -37,14 +37,14 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.replaceTextsView = new System.Windows.Forms.DataGridView();
-            this.replaceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.replaced = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.regexpText = new System.Windows.Forms.TextBox();
             this.tagNameText = new System.Windows.Forms.TextBox();
             this.selectColumnGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.tagComboBox = new System.Windows.Forms.ComboBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.replaceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.replaced = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.replaceTextsView)).BeginInit();
@@ -65,7 +65,7 @@
             this.groupBox2.Size = new System.Drawing.Size(526, 73);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "テスト";
+            this.groupBox2.Text = "テスト(未実装)";
             // 
             // button1
             // 
@@ -124,16 +124,16 @@
             this.groupBox3.Size = new System.Drawing.Size(526, 257);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "抽出した文字をさらに置換";
+            this.groupBox3.Text = "(2) 抽出した文字列をさらに置換";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(8, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 12);
+            this.label1.Size = new System.Drawing.Size(253, 12);
             this.label1.TabIndex = 23;
-            this.label1.Text = "%sss% : 置換対象の文字列";
+            this.label1.Text = "前の行の置換結果が，次の行の置換対象になります";
             // 
             // replaceTextsView
             // 
@@ -148,18 +148,6 @@
             this.replaceTextsView.Size = new System.Drawing.Size(513, 211);
             this.replaceTextsView.TabIndex = 22;
             // 
-            // replaceText
-            // 
-            this.replaceText.HeaderText = "置換前の文字列";
-            this.replaceText.Name = "replaceText";
-            this.replaceText.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // replaced
-            // 
-            this.replaced.HeaderText = "置換後の文字列";
-            this.replaced.Name = "replaced";
-            this.replaced.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.regexpText);
@@ -168,7 +156,7 @@
             this.groupBox4.Size = new System.Drawing.Size(526, 48);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "ファイル名からの文字抽出 (正規表現)";
+            this.groupBox4.Text = "(1) ファイル名からの文字列抽出 (正規表現)";
             // 
             // regexpText
             // 
@@ -194,6 +182,15 @@
             this.selectColumnGroupBox.TabStop = false;
             this.selectColumnGroupBox.Text = "編集する行の選択";
             // 
+            // tagComboBox
+            // 
+            this.tagComboBox.FormattingEnabled = true;
+            this.tagComboBox.Location = new System.Drawing.Point(6, 18);
+            this.tagComboBox.Name = "tagComboBox";
+            this.tagComboBox.Size = new System.Drawing.Size(135, 20);
+            this.tagComboBox.TabIndex = 0;
+            this.tagComboBox.TextChanged += new System.EventHandler(this.tagComboBox_TextChanged);
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.tagNameText);
@@ -204,14 +201,17 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "表における列名";
             // 
-            // tagComboBox
+            // replaceText
             // 
-            this.tagComboBox.FormattingEnabled = true;
-            this.tagComboBox.Location = new System.Drawing.Point(6, 18);
-            this.tagComboBox.Name = "tagComboBox";
-            this.tagComboBox.Size = new System.Drawing.Size(135, 20);
-            this.tagComboBox.TabIndex = 0;
-            this.tagComboBox.TextChanged += new System.EventHandler(this.tagComboBox_TextChanged);
+            this.replaceText.HeaderText = "置換前の文字列 (正規表現)";
+            this.replaceText.Name = "replaceText";
+            this.replaceText.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // replaced
+            // 
+            this.replaced.HeaderText = "置換後の文字列";
+            this.replaced.Name = "replaced";
+            this.replaced.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // TagConfig
             // 
@@ -250,8 +250,6 @@
         private System.Windows.Forms.TextBox textText;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataGridView replaceTextsView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn replaceText;
-        private System.Windows.Forms.DataGridViewTextBoxColumn replaced;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox regexpText;
         private System.Windows.Forms.Label label1;
@@ -260,5 +258,7 @@
         private System.Windows.Forms.GroupBox selectColumnGroupBox;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.ComboBox tagComboBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn replaceText;
+        private System.Windows.Forms.DataGridViewTextBoxColumn replaced;
     }
 }
