@@ -46,7 +46,11 @@ namespace FileTagManager
 
         }
 
-
+        /// <summary>
+        /// 編集対象のフォルダを指定するウインドウを開く．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dirOpenButton_Click(object sender, EventArgs e)
         {
             //フォルダを開くダイアログの準備
@@ -68,6 +72,11 @@ namespace FileTagManager
             }
         }
 
+        /// <summary>
+        /// タグを編集するウインドウを開く．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void goTagConfigButton_Click(object sender, EventArgs e)
         {
             //タグ設定フォームを生成

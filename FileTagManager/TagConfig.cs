@@ -19,35 +19,42 @@ namespace FileTagManager
         private TagList tagList;
         private int selectTagIndex = -1;
 
+        
+
         public TagConfig()
         {
             InitializeComponent();
 
             tagList = new TagList(tagFilePath); //ファイルからデータを読み込む
-
+           
             updateTagComboBox();
-            updateTagInfo(tagComboBox.SelectedIndex);
+            updateFormInfo(tagComboBox.SelectedIndex);
         }
 
-        //表示の更新
+        /// <summary>
+        /// 選択用ComboBoxの表示更新．
+        /// </summary>
         private void updateTagComboBox()
         {
-            tagComboBox.Items.Clear(); //全部クリア
-
+            tagComboBox.Items.Clear();
             foreach (var tag in tagList.tags)
             {
                 tagComboBox.Items.Add(tag.name);
             }
         }
 
-        //表示の更新
-        private void updateTagInfo(int index)
+        /// <summary>
+        /// 選択されたタグに合わせて，Form全体の表示を更新する．
+        /// </summary>
+        /// <param name="index"></param>
+        private void updateFormInfo(int index)
         {
             if (index < 0 || index > tagList.tags.Count)
                 return;
 
-            Tag tag = tagList.tags[index]; 
+            Tag tag = tagList.tags[index];
 
+            tagNameText.Text = tag.name;
             regexpText.Text = tag.regex; //抽出用正規表現の更新
 
             //置換表の更新
@@ -70,12 +77,22 @@ namespace FileTagManager
 
         //##############################################################################################################
 
-        //編集終了時
+        /// <summary>
+        /// ウィンドウを閉じたときに呼び出される関数．
+        /// ファイルに情報を保存する．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TagConfig_FormClosed(object sender, FormClosedEventArgs e)
         {
-            tagList.writeTagListFile(tagFilePath);
+            tagList.writeTagListFile(tagFilePath); //ファイルへの設定の保存
         }
 
+        /// <summary>
+        /// タグを追加する．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addTagButton_Click(object sender, EventArgs e)
         {
             string tag_name = EditTagForm.showAddTagForm();
@@ -88,40 +105,12 @@ namespace FileTagManager
 
         }
 
-        private void editTagButton_Click(object sender, EventArgs e)
-        {
-            //選択している行を抽出
-            int select_index = tagComboBox.SelectedIndex;
-            if (select_index == -1)
-                return;
-
-            //確認，削除，更新
-            string edit_text = tagList.tags[select_index].name;
-            bool do_delete = false;
-            EditTagForm.showEditTagForm(ref edit_text, out do_delete);
-
-            //削除時
-            if (do_delete)
-            {
-                DialogResult result = MessageBox.Show(
-                  "タグを削除します",
-                  "タグ削除の確認",
-                  MessageBoxButtons.OKCancel);
-                if (result == DialogResult.OK)
-                {
-                    tagList.tags.RemoveAt(select_index);
-                    updateTagComboBox();
-                }
-            }
-            //タグ名変更時
-            else
-            {
-                tagList.tags[select_index].name = edit_text;
-                updateTagComboBox();
-            }
-        }
-
-        private void tagComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// 編集したい行の選択完了時に処理される関数．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tagComboBox_TextChanged(object sender, EventArgs e)
         {
             //変更前に選択していたtagのreplaceTextsViewの内容を保存する
             if (selectTagIndex != -1)
@@ -146,10 +135,9 @@ namespace FileTagManager
                 }
             }
 
-            selectTagIndex = tagComboBox.SelectedIndex; //インデックスの更新
-
-            //表示の更新
-            updateTagInfo(selectTagIndex); 
+            //更新
+            selectTagIndex = tagComboBox.SelectedIndex;
+            updateFormInfo(selectTagIndex);           
         }
 
 
