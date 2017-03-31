@@ -83,7 +83,7 @@ namespace FileTagManager
                 tag.replacedTexts.Clear();
                 foreach (var row in replaceTextsView.Rows.Cast<DataGridViewRow>())
                 {
-                    if (row.Cells[REPLACE_NAME].Value == null || row.Cells[REPLACED_NAME].Value == null)
+                    if (row.Cells[REPLACE_NAME].Value == null && row.Cells[REPLACED_NAME].Value == null)
                         continue;
 
                     string replace_text = row.Cells[REPLACE_NAME].Value.ToString();
