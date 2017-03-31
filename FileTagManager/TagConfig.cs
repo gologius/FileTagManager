@@ -75,7 +75,7 @@ namespace FileTagManager
             {
                 Tag tag = tagList.tags[index];
 
-                //抽出正規表現の更新
+                tag.name = tagNameText.Text;
                 tag.regex = regexpText.Text;
 
                 //置換文字列の更新
