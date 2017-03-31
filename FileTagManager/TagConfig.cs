@@ -12,20 +12,17 @@ namespace FileTagManager
 {
     public partial class TagConfig : Form
     {
-        private string tagFilePath = @"taglist.xml"; //todo configへ
         private const int REPLACE_NAME = 0;
         private const int REPLACED_NAME = 1;
 
         private TagList tagList;
         private int selectTagIndex = -1;
 
-        
-
         public TagConfig()
         {
             InitializeComponent();
 
-            tagList = TagList.getTagList(tagFilePath);
+            tagList = TagList.getTagList(Config.TAGFILE_PATH);
            
             updateTagComboBox();
             updateFormInfo(tagComboBox.SelectedIndex);
@@ -116,7 +113,7 @@ namespace FileTagManager
         private void TagConfig_FormClosed(object sender, FormClosedEventArgs e)
         {
             updateTagList(selectTagIndex); //フォームの情報を保存
-            tagList.writeTagListFile(tagFilePath); //ファイルへの設定の保存
+            tagList.writeTagListFile(Config.TAGFILE_PATH); //ファイルへの設定の保存
         }
 
         /// <summary>
