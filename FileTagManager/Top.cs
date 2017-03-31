@@ -19,16 +19,38 @@ namespace FileTagManager
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+
+        private void setFileNameView(string selectPath)
         {
+            //表を初期化
+            fileNameView.Rows.Clear();
+
+            //指定パスにあるファイルを取得する
+            var fullpaths = System.IO.Directory.GetFiles(selectPath, "*");
+            foreach (var f in fullpaths)
+            {
+                //行をset
+                fileNameView.Rows.Add(Path.GetFileName(f));
+
+            }
+        }
+
+        private void updateUseTagList(){
 
         }
+
+        //##############################################################################################################
 
         private void 設定ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// 編集対象のフォルダを指定するウインドウを開く．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dirOpenButton_Click(object sender, EventArgs e)
         {
             //フォルダを開くダイアログの準備
@@ -50,19 +72,19 @@ namespace FileTagManager
             }
         }
 
-        private void setFileNameView(string selectPath)
+        /// <summary>
+        /// タグを編集するウインドウを開く．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void goTagConfigButton_Click(object sender, EventArgs e)
         {
-            //表を初期化
-            fileNameView.Rows.Clear();
+            //タグ設定フォームを生成
+            TagConfig form = new TagConfig();
+            form.ShowDialog(this); //編集終了までTOPには戻らない
+            form.Dispose();
 
-            //指定パスにあるファイルを取得する
-            var fullpaths = System.IO.Directory.GetFiles(selectPath, "*");
-            foreach (var f in fullpaths)
-            {
-                //行をset
-                fileNameView.Rows.Add(Path.GetFileName(f));
-
-            }
+            updateUseTagList();//タグ編集内容を反映
         }
     }
 }
