@@ -83,8 +83,12 @@ namespace FileTagManager
                 tag.replacedTexts.Clear();
                 foreach (var row in replaceTextsView.Rows.Cast<DataGridViewRow>())
                 {
-                    if (row.Cells[REPLACE_NAME].Value == null && row.Cells[REPLACED_NAME].Value == null)
+                    //置換前が空なら，挿入しない
+                    if (row.Cells[REPLACE_NAME].Value == null)
                         continue;
+                    //置換後が空なら，空文字列を挿入する
+                    else if (row.Cells[REPLACED_NAME].Value == null) 
+                        row.Cells[REPLACED_NAME].Value = "";
 
                     string replace_text = row.Cells[REPLACE_NAME].Value.ToString();
                     string replaced_text = row.Cells[REPLACED_NAME].Value.ToString();
