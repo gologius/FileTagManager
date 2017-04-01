@@ -37,14 +37,14 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.replaceTextsView = new System.Windows.Forms.DataGridView();
+            this.replaceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.replaced = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.regexpText = new System.Windows.Forms.TextBox();
             this.tagNameText = new System.Windows.Forms.TextBox();
             this.selectColumnGroupBox = new System.Windows.Forms.GroupBox();
             this.tagComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.replaceText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.replaced = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.replaceTextsView)).BeginInit();
@@ -148,6 +148,18 @@
             this.replaceTextsView.Size = new System.Drawing.Size(513, 211);
             this.replaceTextsView.TabIndex = 22;
             // 
+            // replaceText
+            // 
+            this.replaceText.HeaderText = "置換前の文字列 (正規表現)";
+            this.replaceText.Name = "replaceText";
+            this.replaceText.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // replaced
+            // 
+            this.replaced.HeaderText = "置換後の文字列";
+            this.replaced.Name = "replaced";
+            this.replaced.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.regexpText);
@@ -200,18 +212,6 @@
             this.groupBox5.TabIndex = 28;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "表における列名";
-            // 
-            // replaceText
-            // 
-            this.replaceText.HeaderText = "置換前の文字列 (正規表現)";
-            this.replaceText.Name = "replaceText";
-            this.replaceText.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // replaced
-            // 
-            this.replaced.HeaderText = "置換後の文字列";
-            this.replaced.Name = "replaced";
-            this.replaced.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // TagConfig
             // 
