@@ -32,6 +32,19 @@ namespace FileTagManager
             InitializeComponent();
         }
 
+        // 閉じるボタンを無効にする
+        protected override System.Windows.Forms.CreateParams CreateParams
+        {
+            get
+            {
+                const int CS_NOCLOSE = 0x200;
+
+                System.Windows.Forms.CreateParams createParams = base.CreateParams;
+                createParams.ClassStyle |= CS_NOCLOSE;
+
+                return createParams;
+            }
+        }
 
         /// <summary>
         /// 与えられたZIPファイルのパスから，
@@ -119,17 +132,6 @@ namespace FileTagManager
         }
 
         //##############################################################################################################
-
-
-        private void backButton_Click(object sender, EventArgs e)
-        {
-            back();
-        }
-
-        private void nextButton_Click(object sender, EventArgs e)
-        {
-            next();
-        }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
