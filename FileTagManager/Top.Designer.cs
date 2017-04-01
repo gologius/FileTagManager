@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.formatText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameView = new System.Windows.Forms.DataGridView();
@@ -38,6 +39,7 @@
             this.AllConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StringConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DirOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showPreviewCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.fileNameView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -46,16 +48,16 @@
             // 
             this.formatText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.formatText.Location = new System.Drawing.Point(153, 29);
+            this.formatText.Location = new System.Drawing.Point(251, 29);
             this.formatText.Name = "formatText";
-            this.formatText.Size = new System.Drawing.Size(779, 19);
+            this.formatText.Size = new System.Drawing.Size(681, 19);
             this.formatText.TabIndex = 3;
             this.formatText.Text = "[%Author%] %Title%";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 32);
+            this.label1.Location = new System.Drawing.Point(110, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(135, 12);
             this.label1.TabIndex = 7;
@@ -65,6 +67,8 @@
             // 
             this.fileNameView.AllowUserToAddRows = false;
             this.fileNameView.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.fileNameView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -124,7 +128,7 @@
             // StringConfigToolStripMenuItem
             // 
             this.StringConfigToolStripMenuItem.Name = "StringConfigToolStripMenuItem";
-            this.StringConfigToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.StringConfigToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.StringConfigToolStripMenuItem.Text = "文字列抽出設定";
             this.StringConfigToolStripMenuItem.Click += new System.EventHandler(this.StringConfigToolStripMenuItem_Click);
             // 
@@ -135,11 +139,25 @@
             this.DirOpenToolStripMenuItem.Text = "フォルダを開く";
             this.DirOpenToolStripMenuItem.Click += new System.EventHandler(this.DirOpenToolStripMenuItem_Click);
             // 
+            // showPreviewCheckBox
+            // 
+            this.showPreviewCheckBox.AutoSize = true;
+            this.showPreviewCheckBox.Checked = true;
+            this.showPreviewCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showPreviewCheckBox.Location = new System.Drawing.Point(12, 31);
+            this.showPreviewCheckBox.Name = "showPreviewCheckBox";
+            this.showPreviewCheckBox.Size = new System.Drawing.Size(92, 16);
+            this.showPreviewCheckBox.TabIndex = 16;
+            this.showPreviewCheckBox.Text = "プレビュー表示";
+            this.showPreviewCheckBox.UseVisualStyleBackColor = true;
+            this.showPreviewCheckBox.CheckedChanged += new System.EventHandler(this.showPreviewCheckBox_CheckedChanged);
+            // 
             // Top
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1096, 617);
+            this.Controls.Add(this.showPreviewCheckBox);
             this.Controls.Add(this.decideChangeNameButton);
             this.Controls.Add(this.fileNameView);
             this.Controls.Add(this.formatText);
@@ -167,6 +185,7 @@
         private System.Windows.Forms.ToolStripMenuItem AllConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem StringConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DirOpenToolStripMenuItem;
+        private System.Windows.Forms.CheckBox showPreviewCheckBox;
     }
 }
 
