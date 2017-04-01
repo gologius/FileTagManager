@@ -249,15 +249,17 @@ namespace FileTagManager
                 imgform.Show();
             }
 
-            if (showPreviewCheckBox.Checked)
+            //ZIPファイルをViewerに設定
+            if (showPreviewCheckBox.Checked && fileNameView.SelectedCells.Count > 0)
+            {
+                int select_row = fileNameView.SelectedCells[0].RowIndex; //選択しているセルの行番号取得
                 imgform.setZip(@currentPath + @"\" + viewValue(select_row, 0));
+            }
         }
 
         private void showPreviewCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             showViewer(showPreviewCheckBox.Checked);
         }
-
-
     }
 }
