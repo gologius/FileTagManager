@@ -24,6 +24,7 @@ namespace FileTagManager
     public partial class ImagePreviewForm : Form
     {
 
+        ZipArchive archive = null;
         List<ZipArchiveEntry> imgFiles = new List<ZipArchiveEntry>();
         private int lookPage = 0; //現在閲覧しているページ番号
 
@@ -66,12 +67,13 @@ namespace FileTagManager
             }
 
             //初期化
+            if (archive != null) archive.Dispose();
             imgFiles.Clear();
-         
+
             try
             {
                 //Zipファイルから画像ファイルのみを取り出す
-                ZipArchive archive = ZipFile.OpenRead(path);
+                archive = ZipFile.OpenRead(path);
                 foreach (ZipArchiveEntry e in archive.Entries)
                 {
                     if (Path.GetExtension(e.FullName).Equals(".jpg") ||
@@ -90,7 +92,7 @@ namespace FileTagManager
             {
                 //確認ダイアログ
                 MessageBox.Show(
-                    "圧縮ファイル読み込みエラー",
+                    "圧縮ファイルIOエラー",
                     "確認",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation,
@@ -110,7 +112,7 @@ namespace FileTagManager
             //エラー処理
             if (imgFiles.Count == 0)
                 return;
-            
+
             pictureBox1.Image = Image.FromStream(imgFiles[lookPage].Open());
             this.Text = "Preview - " + imgFiles[lookPage].FullName;
         }
@@ -151,5 +153,16 @@ namespace FileTagManager
                 next();
             }
         }
+
+        public void clear()
+        {
+            //ファイル読み込みの終了
+            if (archive != null)
+            {
+                archive.Dispose();
+                imgFiles.Clear();
+            }
+        }
+
     }
 }
