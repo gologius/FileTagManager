@@ -24,11 +24,8 @@ namespace FileTagManager
     public partial class ImagePreviewForm : Form
     {
 
-
-        private List<Image> imgs = new List<Image>();
-        private List<string> paths = new List<string>();
-
-        private int lookPage = 0;
+        List<ZipArchiveEntry> imgFiles = new List<ZipArchiveEntry>();
+        private int lookPage = 0; //現在閲覧しているページ番号
 
         public ImagePreviewForm()
         {
@@ -50,14 +47,11 @@ namespace FileTagManager
             }
 
             //初期化
-            imgs.Clear();
-            paths.Clear();
-
+            imgFiles.Clear();
+         
             try
             {
-
                 //Zipファイルから画像ファイルのみを取り出す
-                List<ZipArchiveEntry> imgZips = new List<ZipArchiveEntry>();
                 ZipArchive archive = ZipFile.OpenRead(path);
                 foreach (ZipArchiveEntry e in archive.Entries)
                 {
@@ -66,23 +60,18 @@ namespace FileTagManager
                         Path.GetExtension(e.FullName).Equals(".png") ||
                         Path.GetExtension(e.FullName).Equals(".bmp"))
                     {
-                        imgZips.Add(e);
+                        imgFiles.Add(e);
                     }
                 }
 
-                //名前でソートして画像とパスを保存
-                imgZips.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
-                foreach (var i in imgZips)
-                {
-                    imgs.Add(Image.FromStream(i.Open()));
-                    paths.Add(i.FullName);
-                }
+                //名前でソート
+                imgFiles.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
             }
             catch (InvalidDataException ex)
             {
                 //確認ダイアログ
                 MessageBox.Show(
-                    "Zipファイル読み込みエラー",
+                    "圧縮ファイル読み込みエラー (ZIPのみ対応)",
                     "確認",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation,
@@ -91,7 +80,7 @@ namespace FileTagManager
 
             //一枚目の画像を表示
             lookPage = 0;
-            if (imgs.Count != 0)
+            if (imgFiles.Count != 0)
             {
                 updatePictureBox();
             }
@@ -100,19 +89,17 @@ namespace FileTagManager
         private void updatePictureBox()
         {
             //エラー処理
-            if (imgs.Count == 0)
-            {
+            if (imgFiles.Count == 0)
                 return;
-            }
-
-            pictureBox1.Image = imgs[lookPage];
-            this.Text = "Preview - " + @paths[lookPage];
+            
+            pictureBox1.Image = Image.FromStream(imgFiles[lookPage].Open());
+            this.Text = "Preview - " + imgFiles[lookPage].FullName;
         }
 
         private void back()
         {
             lookPage--;
-            if (lookPage < 0) lookPage = imgs.Count - 1;
+            if (lookPage < 0) lookPage = imgFiles.Count - 1;
 
             updatePictureBox();
         }
@@ -120,7 +107,7 @@ namespace FileTagManager
         private void next()
         {
             lookPage++;
-            if (lookPage >= imgs.Count) lookPage = 0;
+            if (lookPage >= imgFiles.Count) lookPage = 0;
 
             updatePictureBox();
         }

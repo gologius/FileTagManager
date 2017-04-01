@@ -41,7 +41,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Location = new System.Drawing.Point(13, 13);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(347, 323);
+            this.pictureBox1.Size = new System.Drawing.Size(645, 855);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -50,7 +50,7 @@
             // backButton
             // 
             this.backButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.backButton.Location = new System.Drawing.Point(12, 342);
+            this.backButton.Location = new System.Drawing.Point(12, 874);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(134, 23);
             this.backButton.TabIndex = 1;
@@ -61,7 +61,7 @@
             // nextButton
             // 
             this.nextButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.nextButton.Location = new System.Drawing.Point(226, 342);
+            this.nextButton.Location = new System.Drawing.Point(524, 874);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(134, 23);
             this.nextButton.TabIndex = 2;
@@ -73,7 +73,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 377);
+            this.ClientSize = new System.Drawing.Size(670, 909);
             this.Controls.Add(this.nextButton);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.pictureBox1);
