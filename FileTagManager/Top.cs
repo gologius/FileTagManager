@@ -215,12 +215,24 @@ namespace FileTagManager
                     result = result.Replace("%" + tag.name + "%", cell_string);
                 }
 
-                //実際にファイル名を変更する
-                System.IO.File.Move(
-                    @currentPath + @"\" + viewValue(select_index, 0),
-                    @currentPath + @"\" + result);
-            }
+                try
+                {
+                    //実際にファイル名を変更する
+                    System.IO.File.Move(
+                        @currentPath + @"\" + viewValue(select_index, 0),
+                        @currentPath + @"\" + result);
 
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(
+                    "\""+viewValue(select_index, 0) + "\" > \"" + result + "\"\n" + ex.Message,
+                    "ファイル名変更時エラー",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button2);
+                }
+            }
             //確認ダイアログ
             MessageBox.Show(
                 "変更が終了しました",
