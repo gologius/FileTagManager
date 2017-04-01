@@ -16,11 +16,17 @@ namespace FileTagManager
     {
         private string currentPath = "";
         private TagList tagList;
+        ImagePreviewForm imgform;
 
         public Top()
         {
             InitializeComponent();
-            tagList = TagList.getTagList(Config.TAGFILE_PATH);
+
+            tagList = TagList.getTagList(Config.TAGFILE_PATH); //タグ設定情報を読み込み
+
+            //画像プレビュー用のフォームを生成
+            imgform = new ImagePreviewForm();
+            imgform.Show();
         }
 
         /// <summary>
@@ -195,6 +201,24 @@ namespace FileTagManager
 
             //ファイルのパスが変わるので，表示を更新する
             updateFileNameView(currentPath);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
+        /// <summary>
+        /// Zipファイルにアクセスして，別のウインドウにZIPファイル内の画像を表示する．
+        /// Viewでセル選択が別のセルに移ったときに場合に呼ばれる．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void fileNameView_SelectionChanged(object sender, EventArgs e)
+        {
+            int select_row = fileNameView.SelectedCells[0].RowIndex;
+            imgform.setZip(@currentPath + @"\" + viewValue(select_row, 0));
         }
 
 
