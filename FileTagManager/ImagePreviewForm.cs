@@ -40,11 +40,8 @@ namespace FileTagManager
         public void setZip(string path)
         {
             //圧縮ファイル以外の場合は無視
-            if (!Path.GetExtension(path).Equals(".zip") &&
-                !Path.GetExtension(path).Equals(".rar"))
-            {
+            if (!Path.GetExtension(path).Equals(".zip"))
                 return;
-            }
 
             //初期化
             imgFiles.Clear();
