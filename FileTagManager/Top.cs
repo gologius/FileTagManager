@@ -23,10 +23,7 @@ namespace FileTagManager
             InitializeComponent();
 
             tagList = TagList.getTagList(Config.TAGFILE_PATH); //タグ設定情報を読み込み
-
-            //画像プレビュー用のフォームを生成
-            imgform = new ImagePreviewForm();
-            imgform.Show();
+            showViewer(showPreviewCheckBox.Checked); //画像ビューワーの表示
         }
 
         /// <summary>
@@ -113,6 +110,33 @@ namespace FileTagManager
                     string target = fileNameView.Rows[i].Cells[0].Value.ToString(); //ファイル名を取得
                     fileNameView.Rows[i].Cells[j + 1].Value = tagList.tags[j].replace(target); //セルに挿入
                 }
+            }
+        }
+
+        /// <summary>
+        /// 画像ビューワーの表示
+        /// </summary>
+        /// <param name="isShow">trueなら表示，falseなら非表示</param>
+        private void showViewer(bool isShow)
+        {
+            //表示
+            if (isShow)
+            {
+                imgform = new ImagePreviewForm();
+                imgform.Show();
+
+                //選択されているセル行のZIPファイル名を取得
+                if (fileNameView.SelectedCells.Count > 0)
+                {
+                    int select_row = fileNameView.SelectedCells[0].RowIndex; //選択しているセルの行番号取得
+                    imgform.setZip(@currentPath + @"\" + viewValue(select_row, 0));
+                }
+            }
+            //非表示
+            else
+            {
+                //フォームを閉じる
+                imgform.Close();
             }
         }
 
@@ -208,12 +232,6 @@ namespace FileTagManager
             updateFileNameView(currentPath);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
         /// <summary>
         /// Zipファイルにアクセスして，別のウインドウにZIPファイル内の画像を表示する．
         /// Viewでセル選択が別のセルに移ったときに場合に呼ばれる．
@@ -222,10 +240,23 @@ namespace FileTagManager
         /// <param name="e"></param>
         private void fileNameView_SelectionChanged(object sender, EventArgs e)
         {
-            int select_row = fileNameView.SelectedCells[0].RowIndex;
-            imgform.setZip(@currentPath + @"\" + viewValue(select_row, 0));
+            int select_row = fileNameView.SelectedCells[0].RowIndex; //選択しているセルの行番号取得
+
+            //プレビューが消えている場合はもう一度表示
+            if (imgform == null && showPreviewCheckBox.Checked)
+            {
+                imgform = new ImagePreviewForm();
+                imgform.Show();
+            }
+
+            if (showPreviewCheckBox.Checked)
+                imgform.setZip(@currentPath + @"\" + viewValue(select_row, 0));
         }
 
+        private void showPreviewCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            showViewer(showPreviewCheckBox.Checked);
+        }
 
 
     }
