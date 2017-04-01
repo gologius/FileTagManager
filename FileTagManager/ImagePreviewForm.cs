@@ -41,7 +41,16 @@ namespace FileTagManager
         {
             //圧縮ファイル以外の場合は無視
             if (!Path.GetExtension(path).Equals(".zip"))
+            {
+                //確認ダイアログ
+                MessageBox.Show(
+                    "ZIPファイルではありません",
+                    "確認",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button2);
                 return;
+            }
 
             //初期化
             imgFiles.Clear();
@@ -68,7 +77,7 @@ namespace FileTagManager
             {
                 //確認ダイアログ
                 MessageBox.Show(
-                    "圧縮ファイル読み込みエラー (ZIPのみ対応)",
+                    "圧縮ファイル読み込みエラー",
                     "確認",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation,
