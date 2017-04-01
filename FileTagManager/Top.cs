@@ -43,6 +43,9 @@ namespace FileTagManager
         /// <param name="selectPath">ファイルを読み込むフォルダのパス</param>
         private void updateFileNameView(string selectPath)
         {
+            if (currentPath.Equals(""))
+                return;
+
             //列がない(=初回)場合は列を追加する
             //元のファイル名表示(1列)+タグ数 
             if (fileNameView.Columns.Count < Config.MAX_TAG_NUM + 1)
@@ -161,9 +164,9 @@ namespace FileTagManager
             var Result = dialog.ShowDialog();
             if (Result == CommonFileDialogResult.Ok)
             {
-                //
                 this.Text = "File Tag Manager - " + dialog.FileName;
                 currentPath = dialog.FileName;
+                decideChangeNameButton.Enabled = true; //ファイル名書き換えボタンを有効にする
 
                 updateFileNameView(dialog.FileName);
             }
