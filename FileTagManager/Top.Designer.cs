@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameView = new System.Windows.Forms.DataGridView();
             this.decideChangeNameButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.formatText.Location = new System.Drawing.Point(153, 29);
             this.formatText.Name = "formatText";
-            this.formatText.Size = new System.Drawing.Size(627, 19);
+            this.formatText.Size = new System.Drawing.Size(779, 19);
             this.formatText.TabIndex = 3;
             this.formatText.Text = "[%Author%] %Title%";
             // 
@@ -76,6 +75,7 @@
             this.fileNameView.RowTemplate.Height = 21;
             this.fileNameView.Size = new System.Drawing.Size(1073, 549);
             this.fileNameView.TabIndex = 8;
+            this.fileNameView.SelectionChanged += new System.EventHandler(this.fileNameView_SelectionChanged);
             // 
             // decideChangeNameButton
             // 
@@ -86,15 +86,6 @@
             this.decideChangeNameButton.Text = "選択したファイル名を変更";
             this.decideChangeNameButton.UseVisualStyleBackColor = true;
             this.decideChangeNameButton.Click += new System.EventHandler(this.decideChangeNameButton_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(786, 27);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(146, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -150,7 +141,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1096, 617);
             this.Controls.Add(this.decideChangeNameButton);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.fileNameView);
             this.Controls.Add(this.formatText);
             this.Controls.Add(this.label1);
@@ -171,7 +161,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView fileNameView;
         private System.Windows.Forms.Button decideChangeNameButton;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ConfigToolStripMenuItem;

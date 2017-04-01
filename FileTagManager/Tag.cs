@@ -59,7 +59,11 @@ namespace FileTagManager
                 }
 
             }
-            catch { }
+            catch (System.NullReferenceException ex)
+            {
+
+            }
+            
 
             return result;
         }
