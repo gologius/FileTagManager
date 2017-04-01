@@ -181,6 +181,7 @@ namespace FileTagManager
             form.Dispose();
 
             updateHeaderText(); //タグ名が変わっている場合があるため，更新する
+            updateFileNameView(currentPath); //抽出条件が変わる場合があるので更新する．
         }
 
         /// <summary>
@@ -240,8 +241,6 @@ namespace FileTagManager
         /// <param name="e"></param>
         private void fileNameView_SelectionChanged(object sender, EventArgs e)
         {
-            int select_row = fileNameView.SelectedCells[0].RowIndex; //選択しているセルの行番号取得
-
             //プレビューが消えている場合はもう一度表示
             if (imgform == null && showPreviewCheckBox.Checked)
             {
