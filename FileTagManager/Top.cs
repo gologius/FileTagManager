@@ -136,7 +136,8 @@ namespace FileTagManager
             else
             {
                 //フォームを閉じる
-                imgform.Close();
+                imgform.clear(); //file close
+                imgform.Dispose();
             }
         }
 
@@ -199,10 +200,14 @@ namespace FileTagManager
                 MessageBoxIcon.None,
                 MessageBoxDefaultButton.Button2);
             if (decide == DialogResult.Cancel)
+            {
                 return;
+            }
+            
+            //ビューワーを一回落とす(ファイルアクセス中に名前を変更できない)
+            showViewer(false);
 
-
-            //選択された行だけ対象
+            //選択された行だけ対象に，文字を置換していく
             foreach (DataGridViewCell c in fileNameView.SelectedCells)
             {
                 int select_index = c.RowIndex;
@@ -243,6 +248,9 @@ namespace FileTagManager
 
             //ファイルのパスが変わるので，表示を更新する
             updateFileNameView(currentPath);
+
+            //ビューワーを再表示
+            showViewer(showPreviewCheckBox.Checked);
         }
 
         /// <summary>
@@ -253,13 +261,6 @@ namespace FileTagManager
         /// <param name="e"></param>
         private void fileNameView_SelectionChanged(object sender, EventArgs e)
         {
-            //プレビューが消えている場合はもう一度表示
-            if (imgform == null && showPreviewCheckBox.Checked)
-            {
-                imgform = new ImagePreviewForm();
-                imgform.Show();
-            }
-
             //ZIPファイルをViewerに設定
             if (showPreviewCheckBox.Checked && fileNameView.SelectedCells.Count > 0)
             {
@@ -268,6 +269,12 @@ namespace FileTagManager
             }
         }
 
+        /// <summary>
+        /// Viewerの表示切替をする．
+        /// チェックボックスを切り替えたときに呼ばれる．
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void showPreviewCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             showViewer(showPreviewCheckBox.Checked);
