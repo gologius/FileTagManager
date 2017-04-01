@@ -69,12 +69,17 @@ namespace FileTagManager
             var fullpaths = System.IO.Directory.GetFiles(selectPath, "*");
             foreach (var f in fullpaths)
             {
-                //行をset
-                fileNameView.Rows.Add(Path.GetFileName(f));
+                fileNameView.Rows.Add(Path.GetFileName(f)); //行をset
             }
 
             extractString(); //tagの設定に合わせて文字列を抽出，反映
-        }
+      
+            //左端の列の色を変更
+            for (int i = 0; i < fileNameView.Rows.Count; i++)
+            {
+                fileNameView[0, i].Style.BackColor = Color.LightBlue;
+            }
+       }
 
         /// <summary>
         /// Viewの列ヘッダーテキストを更新する(表の最上部の行のテキスト)
