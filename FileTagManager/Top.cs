@@ -211,10 +211,17 @@ namespace FileTagManager
             //ビューワーを一回落とす(ファイルアクセス中に名前を変更できない)
             showViewer(false);
 
-            //選択された行だけ対象に，文字を置換していく
-            foreach (DataGridViewCell c in fileNameView.SelectedRows)
+            //選択されているセルから，行番号を重複がないように抽出する
+            List<int> indices = new List<int>();
+            foreach (DataGridViewCell c in fileNameView.SelectedCells)
             {
-                int select_index = c.RowIndex;
+                indices.Add(c.RowIndex);
+            }
+            indices = indices.Distinct().ToList<int>();
+            
+            //選択された行だけ対象に，文字を置換していく
+            foreach (int select_index in indices)
+            {
                 string result = formatText.Text; //テンプレート文字列を取り出す
 
                 //%で囲んだタグ名を，文字列に置き換える
