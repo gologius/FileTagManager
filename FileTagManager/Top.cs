@@ -212,7 +212,7 @@ namespace FileTagManager
             showViewer(false);
 
             //選択された行だけ対象に，文字を置換していく
-            foreach (DataGridViewCell c in fileNameView.SelectedCells)
+            foreach (DataGridViewCell c in fileNameView.SelectedRows)
             {
                 int select_index = c.RowIndex;
                 string result = formatText.Text; //テンプレート文字列を取り出す
