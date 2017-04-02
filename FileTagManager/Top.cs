@@ -16,7 +16,8 @@ namespace FileTagManager
     {
         private string currentPath = "";
         private TagList tagList;
-        ImagePreviewForm imgform;
+        private ImagePreviewForm imgform;
+        private int prevSelectRow = -1; //前回選択していたセル行番号
 
         public Top()
         {
@@ -268,7 +269,12 @@ namespace FileTagManager
             if (showPreviewCheckBox.Checked && fileNameView.SelectedCells.Count > 0)
             {
                 int select_row = fileNameView.SelectedCells[0].RowIndex; //選択しているセルの行番号取得
-                imgform.setZip(@currentPath + @"\" + viewValue(select_row, 0));
+                //前回選択していた行と違う行なら
+                if (select_row != prevSelectRow)
+                {
+                    imgform.setZip(@currentPath + @"\" + viewValue(select_row, 0));
+                    prevSelectRow = select_row; //更新
+                }
             }
         }
 
