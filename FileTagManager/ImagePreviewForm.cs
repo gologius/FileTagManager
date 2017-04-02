@@ -56,13 +56,8 @@ namespace FileTagManager
             //圧縮ファイル以外の場合は無視
             if (!Path.GetExtension(path).Equals(".zip"))
             {
-                //確認ダイアログ
-                MessageBox.Show(
-                    "ZIPファイルではありません",
-                    "確認",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button2);
+                messageLabel.Text = "ZIPファイルではありません";
+                pictureBox1.Image = null;
                 return;
             }
 
@@ -90,15 +85,13 @@ namespace FileTagManager
             }
             catch (InvalidDataException ex)
             {
-                //確認ダイアログ
-                MessageBox.Show(
-                    "圧縮ファイルIOエラー",
-                    "確認",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button2);
+               messageLabel.Text = "圧縮ファイルIOエラー";
+               pictureBox1.Image = null;
             }
 
+            //メッセージラベル非表示
+            messageLabel.Text = "";
+           
             //一枚目の画像を表示
             lookPage = 0;
             if (imgFiles.Count != 0)
