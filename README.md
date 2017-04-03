@@ -1,7 +1,7 @@
 # FileTagManager
-ファイル名をタグに分解して管理するツールです
+ZIPファイルの中の画像を見ながら，ファイル名を変更することができます．
 
-圧縮ファイルを自動で展開し，中の画像を見ながらタグを設定して，ファイル名に埋め込むことが出来ます．
+ファイル名は正規表現を用いてタグとして抽出することができます．
 
 # 使用方法
 1. フォルダを指定
@@ -14,3 +14,10 @@ XMLファイルに以下の情報が保存されます
     * 抽出用正規表現
     * 置換対象の文字列抽出のための正規表現
     * 置換後の文字列
+    
+# スクリーンショット
+![ファイル名表示](https://github.com/gologius/FileTagManager/blob/master/screenshots/1.png)
+
+![画像プレビュー](https://github.com/gologius/FileTagManager/blob/master/screenshots/2.png)
+
+![文字列抽出設定](https://github.com/gologius/FileTagManager/blob/master/screenshots/3.png)
