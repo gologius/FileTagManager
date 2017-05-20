@@ -167,7 +167,8 @@ namespace FileTagManager
             {
                 this.Text = "File Tag Manager - " + dialog.FileName;
                 currentPath = dialog.FileName;
-                decideChangeNameButton.Enabled = true; //ファイル名書き換えボタンを有効にする
+                decideChangeNameButton.Enabled = true; //ボタンを有効にする
+                overrideButton.Enabled = true;
 
                 updateFileNameView(dialog.FileName);
             }
@@ -207,7 +208,7 @@ namespace FileTagManager
             {
                 return;
             }
-            
+
             //ビューワーを一回落とす(ファイルアクセス中に名前を変更できない)
             showViewer(false);
 
@@ -217,8 +218,8 @@ namespace FileTagManager
             {
                 indices.Add(c.RowIndex);
             }
-            indices = indices.Distinct().ToList<int>();
-            
+            indices = indices.Distinct().ToList<int>(); //重複の削除
+
             //選択された行だけ対象に，文字を置換していく
             foreach (int select_index in indices)
             {
@@ -242,7 +243,7 @@ namespace FileTagManager
                 catch (IOException ex)
                 {
                     MessageBox.Show(
-                    "\""+viewValue(select_index, 0) + "\" > \"" + result + "\"\n" + ex.Message,
+                    "\"" + viewValue(select_index, 0) + "\" > \"" + result + "\"\n" + ex.Message,
                     "ファイル名変更時エラー",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error,
@@ -294,6 +295,35 @@ namespace FileTagManager
         private void showPreviewCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             showViewer(showPreviewCheckBox.Checked);
+        }
+
+        /// <summary>
+        /// 選択されたセル内のタグを上書き設定する
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void overrideButton_Click(object sender, EventArgs e)
+        {
+            //確認ダイアログ
+            DialogResult decide = MessageBox.Show(
+                "タグを一括で設定しますか？",
+                "確認",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.None,
+                MessageBoxDefaultButton.Button2);
+            if (decide == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            //選択されているセルを抽出
+            string override_text = overrideTextBox.Text;
+            foreach (DataGridViewCell cell in fileNameView.SelectedCells)
+            {
+                //textboxで設定されている文字列に変更する
+                fileNameView.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = override_text;
+            }
+
         }
     }
 }
