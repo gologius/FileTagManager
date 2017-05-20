@@ -76,7 +76,6 @@ namespace FileTagManager
     {
         private static TagList instance = new TagList(); //シングルトン
 
-        public int MAX_TAG_NUM = 3; //登録できる最大数
         public List<Tag> tags = new List<Tag>();
 
         private TagList()
@@ -110,7 +109,7 @@ namespace FileTagManager
             catch (FileNotFoundException e)
             {
                 //最大数までタグを生成しておく
-                for (int i = 0; i < MAX_TAG_NUM; i++)
+                for (int i = 0; i < Config.MAX_TAG_NUM; i++)
                 {
                     tags.Add(new Tag("tag" + (i + 1).ToString()));
                 }
