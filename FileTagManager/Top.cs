@@ -139,9 +139,12 @@ namespace FileTagManager
             //非表示
             else
             {
-                //フォームを閉じる
-                imgform.clear(); //file close
-                imgform.Dispose();
+                if (imgform != null)
+                {
+                    //フォームを閉じる
+                    imgform.clear(); //file close
+                    imgform.Dispose();
+                }
             }
         }
 
