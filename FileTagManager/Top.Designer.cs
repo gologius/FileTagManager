@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.formatText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameView = new System.Windows.Forms.DataGridView();
@@ -54,7 +54,7 @@
             this.formatText.Name = "formatText";
             this.formatText.Size = new System.Drawing.Size(195, 19);
             this.formatText.TabIndex = 3;
-            this.formatText.Text = "[%Author%] %Title% %Extension%";
+            this.formatText.Text = "[%Author%] %Title%%Extension%";
             // 
             // label1
             // 
@@ -69,8 +69,8 @@
             // 
             this.fileNameView.AllowUserToAddRows = false;
             this.fileNameView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gainsboro;
-            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gainsboro;
+            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.fileNameView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -116,7 +116,7 @@
             // DirOpenToolStripMenuItem
             // 
             this.DirOpenToolStripMenuItem.Name = "DirOpenToolStripMenuItem";
-            this.DirOpenToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.DirOpenToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.DirOpenToolStripMenuItem.Text = "フォルダを開く";
             this.DirOpenToolStripMenuItem.Click += new System.EventHandler(this.DirOpenToolStripMenuItem_Click);
             // 
@@ -132,21 +132,19 @@
             // AllConfigToolStripMenuItem
             // 
             this.AllConfigToolStripMenuItem.Name = "AllConfigToolStripMenuItem";
-            this.AllConfigToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.AllConfigToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.AllConfigToolStripMenuItem.Text = "全体設定(未実装)";
             // 
             // StringConfigToolStripMenuItem
             // 
             this.StringConfigToolStripMenuItem.Name = "StringConfigToolStripMenuItem";
-            this.StringConfigToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.StringConfigToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.StringConfigToolStripMenuItem.Text = "文字列抽出設定";
             this.StringConfigToolStripMenuItem.Click += new System.EventHandler(this.StringConfigToolStripMenuItem_Click);
             // 
             // showPreviewCheckBox
             // 
             this.showPreviewCheckBox.AutoSize = true;
-            this.showPreviewCheckBox.Checked = true;
-            this.showPreviewCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showPreviewCheckBox.Location = new System.Drawing.Point(12, 31);
             this.showPreviewCheckBox.Name = "showPreviewCheckBox";
             this.showPreviewCheckBox.Size = new System.Drawing.Size(92, 16);
