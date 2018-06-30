@@ -25,6 +25,18 @@ namespace FileTagManager
 
             tagList = TagList.getTagList(Config.TAGFILE_PATH); //タグ設定情報を読み込み
             showViewer(showPreviewCheckBox.Checked); //画像ビューワーの表示
+
+            //ファイルのD&Dにて起動されたなら（＝コマンドライン引数で、ファイルパスが設定されているなら）
+            string[] cmds = System.Environment.GetCommandLineArgs();
+            if (cmds.Count() == 2)
+            {
+                this.Text = "File Tag Manager - " + cmds[1];
+                currentPath = cmds[1];
+                decideChangeNameButton.Enabled = true; //ボタンを有効にする
+                overrideButton.Enabled = true;
+
+                updateFileNameView(cmds[1]);
+            }
         }
 
         /// <summary>
@@ -65,6 +77,9 @@ namespace FileTagManager
 
             updateHeaderText(); //ヘッダーの更新
             fileNameView.Rows.Clear(); //表を初期化
+
+            //ファイル名が紛れ込んでいる場合、それを削除する
+            selectPath = System.IO.Path.GetDirectoryName(selectPath);
 
             //指定パスにあるファイルを取得して，行を追加していく(列は0番目)．
             var fullpaths = System.IO.Directory.GetFiles(selectPath, "*");
@@ -176,6 +191,7 @@ namespace FileTagManager
                 updateFileNameView(dialog.FileName);
             }
         }
+
 
         /// <summary>
         /// タグを編集するウインドウを開く．

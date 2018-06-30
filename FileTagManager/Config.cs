@@ -13,8 +13,11 @@ namespace FileTagManager
         public static int MAX_TAG_NUM = 3;
         public static string outputFormat = @"[%Author%] %Title%";
 
-        public static string TAGFILE_PATH = @"taglist.xml";
-        public static string CONFIG_FILE_PATH = @"config.xml";
+        private static string EXE_PATH =  System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+        public static string TAGFILE_PATH = EXE_PATH + @"\taglist.xml";
+        public static string CONFIG_FILE_PATH = EXE_PATH + @"\config.xml";
+
+       
 
         public void loadFile()
         {
