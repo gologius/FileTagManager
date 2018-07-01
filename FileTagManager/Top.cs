@@ -30,12 +30,15 @@ namespace FileTagManager
             string[] cmds = System.Environment.GetCommandLineArgs();
             if (cmds.Count() == 2)
             {
-                this.Text = "File Tag Manager - " + cmds[1];
-                currentPath = cmds[1];
+                //ファイル名が紛れ込んでいる場合、それを削除する
+                string dirPath = System.IO.Path.GetDirectoryName(cmds[1]);
+
+                this.Text = "File Tag Manager - " + dirPath;
+                currentPath = dirPath;
                 decideChangeNameButton.Enabled = true; //ボタンを有効にする
                 overrideButton.Enabled = true;
 
-                updateFileNameView(cmds[1]);
+                updateFileNameView(dirPath);
             }
         }
 
@@ -77,9 +80,6 @@ namespace FileTagManager
 
             updateHeaderText(); //ヘッダーの更新
             fileNameView.Rows.Clear(); //表を初期化
-
-            //ファイル名が紛れ込んでいる場合、それを削除する
-            selectPath = System.IO.Path.GetDirectoryName(selectPath);
 
             //指定パスにあるファイルを取得して，行を追加していく(列は0番目)．
             var fullpaths = System.IO.Directory.GetFiles(selectPath, "*");
