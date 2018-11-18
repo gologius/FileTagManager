@@ -34,6 +34,7 @@ namespace FileTagManager
         }
 
         // 閉じるボタンを無効にする
+        /*
         protected override System.Windows.Forms.CreateParams CreateParams
         {
             get
@@ -46,6 +47,7 @@ namespace FileTagManager
                 return createParams;
             }
         }
+        */
 
         /// <summary>
         /// 与えられたZIPファイルのパスから，
@@ -156,6 +158,5 @@ namespace FileTagManager
                 imgFiles.Clear();
             }
         }
-
     }
 }

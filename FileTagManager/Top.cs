@@ -24,8 +24,7 @@ namespace FileTagManager
             InitializeComponent();
 
             tagList = TagList.getTagList(Config.TAGFILE_PATH); //タグ設定情報を読み込み
-            showViewer(showPreviewCheckBox.Checked); //画像ビューワーの表示
-
+            
             //ファイルのD&Dにて起動されたなら（＝コマンドライン引数で、ファイルパスが設定されているなら）
             string[] cmds = System.Environment.GetCommandLineArgs();
             if (cmds.Count() == 2)
@@ -141,6 +140,15 @@ namespace FileTagManager
             //表示
             if (isShow)
             {
+                //ビューワーを複数起動を許さないため、フォームが閉じられているか確認する
+                if (imgform != null)
+                {
+                    if (imgform.IsDisposed == false)
+                    {
+                        return;
+                    }
+                }
+
                 imgform = new ImagePreviewForm();
                 imgform.Show();
 
@@ -279,9 +287,6 @@ namespace FileTagManager
 
             //ファイルのパスが変わるので，表示を更新する
             updateFileNameView(currentPath);
-
-            //ビューワーを再表示
-            showViewer(showPreviewCheckBox.Checked);
         }
 
         /// <summary>
@@ -292,8 +297,14 @@ namespace FileTagManager
         /// <param name="e"></param>
         private void fileNameView_SelectionChanged(object sender, EventArgs e)
         {
+            //フォームが生成されていない or 閉じられている場合はこの処理をしない
+            if (imgform == null)
+                return;
+            if (imgform.IsDisposed)
+                return;
+
             //ZIPファイルをViewerに設定
-            if (showPreviewCheckBox.Checked && fileNameView.SelectedCells.Count > 0)
+            if (fileNameView.SelectedCells.Count > 0)
             {
                 int select_row = fileNameView.SelectedCells[0].RowIndex; //選択しているセルの行番号取得
                 //前回選択していた行と違う行なら
@@ -303,17 +314,6 @@ namespace FileTagManager
                     prevSelectRow = select_row; //更新
                 }
             }
-        }
-
-        /// <summary>
-        /// Viewerの表示切替をする．
-        /// チェックボックスを切り替えたときに呼ばれる．
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void showPreviewCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            showViewer(showPreviewCheckBox.Checked);
         }
 
         /// <summary>
@@ -343,6 +343,16 @@ namespace FileTagManager
                 fileNameView.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = override_text;
             }
 
+        }
+
+        /// <summary>
+        /// プレビューボタンを押した際の挙動
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void previewButton_Click(object sender, EventArgs e)
+        {
+            showViewer(true);
         }
     }
 }
