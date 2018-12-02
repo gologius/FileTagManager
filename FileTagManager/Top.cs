@@ -156,7 +156,7 @@ namespace FileTagManager
                 if (fileNameView.SelectedCells.Count > 0)
                 {
                     int select_row = fileNameView.SelectedCells[0].RowIndex; //選択しているセルの行番号取得
-                    imgform.setZip(@currentPath + @"\" + viewValue(select_row, 0));
+                    imgform.setImages(@currentPath + @"\" + viewValue(select_row, 0));
                 }
             }
             //非表示
@@ -310,7 +310,7 @@ namespace FileTagManager
                 //前回選択していた行と違う行なら
                 if (select_row != prevSelectRow)
                 {
-                    imgform.setZip(@currentPath + @"\" + viewValue(select_row, 0));
+                    imgform.setImages(@currentPath + @"\" + viewValue(select_row, 0));
                     prevSelectRow = select_row; //更新
                 }
             }
