@@ -17,6 +17,7 @@ namespace FileTagManager
     {
 
         IArchive archive = null; //圧縮ファイルの実体
+        IEnumerable<IArchiveEntry> entries = null; //画像ファイル群
         private int lookPage = 0; //現在閲覧しているページ番号
 
         const int SUCCESS = 0;
@@ -51,11 +52,16 @@ namespace FileTagManager
                 archive.Dispose();
             }
 
-            //圧縮ファイルから画像ファイルのみ取り出す
             try
             {
+                //圧縮ファイルから画像ファイルのみ取り出す
                 archive = ArchiveFactory.Open(path);
-                //archive.Entries.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
+                entries = archive.Entries.Where(e =>
+                    e.IsDirectory == false && (
+                    Path.GetExtension(e.Key).Equals(".jpg") ||
+                    Path.GetExtension(e.Key).Equals(".jpeg") ||
+                    Path.GetExtension(e.Key).Equals(".png") ||
+                    Path.GetExtension(e.Key).Equals(".bmp") ));
             }
             catch (Exception e)
             {
@@ -66,7 +72,7 @@ namespace FileTagManager
 
             //一枚目の画像を表示
             lookPage = 0;
-            if (archive.Entries.Count() != 0)
+            if (entries.Count() != 0)
             {
                 messageLabel.Text = ""; //メッセージは何も表示しない
                 updatePictureBox();
@@ -83,13 +89,13 @@ namespace FileTagManager
         /// <returns></returns>
         private int updatePictureBox()
         {
-            if (archive.Entries.Count() == 0)
+            if (entries.Count() == 0)
             {
                 return FILE_NOT_FOUND;
             }
 
             //圧縮ファイル内のファイル指定
-            var entry = archive.Entries.ElementAt(lookPage);
+            var entry = entries.ElementAt(lookPage);
             this.Text = "Preview - " + entry.Key;
             Console.WriteLine(entry.Key);
 
@@ -120,7 +126,7 @@ namespace FileTagManager
         private void back()
         {
             lookPage--;
-            if (lookPage < 0) lookPage = archive.Entries.Count() - 1;
+            if (lookPage < 0) lookPage = entries.Count() - 1;
 
             int result = updatePictureBox();
             if (result == NOT_FILE || result == NOT_IMGFILE)
@@ -135,7 +141,7 @@ namespace FileTagManager
         private void next()
         {
             lookPage++;
-            if (lookPage >= archive.Entries.Count()) lookPage = 0;
+            if (lookPage >= entries.Count()) lookPage = 0;
 
             int result = updatePictureBox();
             if (result == NOT_FILE)
