@@ -1,131 +1,147 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using SharpCompress.Archives;
 
 namespace FileTagManager
 {
-
     /// <summary>
-    /// Zipファイル内の画像を表示する
-    /// 
-    /// ZipClassを使用するには参照マネージャーで，
-    /// * System.IO.Compression
-    /// * System.IO.Compression.FileSystem
-    /// の追加が必要
+    /// 圧縮ファイル内の画像を表示する
+    /// 使用にはNuGetでSharpCompressのインストールが必要
     /// </summary>
     public partial class ImagePreviewForm : Form
     {
 
-        ZipArchive archive = null;
-        List<ZipArchiveEntry> imgFiles = new List<ZipArchiveEntry>();
+        IArchive archive = null; //圧縮ファイルの実体
         private int lookPage = 0; //現在閲覧しているページ番号
+
+        const int SUCCESS = 0;
+        const int FILE_NOT_FOUND = 1;
+        const int NOT_FILE = 2;
+        const int NOT_IMGFILE = 3;
 
         public ImagePreviewForm()
         {
             InitializeComponent();
         }
 
-        // 閉じるボタンを無効にする
-        /*
-        protected override System.Windows.Forms.CreateParams CreateParams
-        {
-            get
-            {
-                const int CS_NOCLOSE = 0x200;
-
-                System.Windows.Forms.CreateParams createParams = base.CreateParams;
-                createParams.ClassStyle |= CS_NOCLOSE;
-
-                return createParams;
-            }
-        }
-        */
-
         /// <summary>
-        /// 与えられたZIPファイルのパスから，
+        /// 圧縮ファイルを指定して、ビューワー表示するための初期化をする
         /// </summary>
-        /// <param name="path"></param>
-        public void setZip(string path)
+        /// <param name="path">圧縮ファイルパス</param>
+        public void setImages(string path)
         {
-            //圧縮ファイル以外の場合は無視
-            if (!Path.GetExtension(path).Equals(".zip"))
+            string extension = Path.GetExtension(path);
+
+            //ZIPかRARファイルでなければ無視する
+            if (!extension.Equals(".zip") && !extension.Equals(".rar"))
             {
-                messageLabel.Text = "ZIPファイルではありません";
+                messageLabel.Text = "ZIPまたはRARファイルではありません";
                 pictureBox1.Image = null;
                 return;
             }
 
             //初期化
-            if (archive != null) archive.Dispose();
-            imgFiles.Clear();
+            if (archive != null)
+            {
+                archive.Dispose();
+            }
 
+            //圧縮ファイルから画像ファイルのみ取り出す
             try
             {
-                //Zipファイルから画像ファイルのみを取り出す
-                archive = ZipFile.OpenRead(path);
-                foreach (ZipArchiveEntry e in archive.Entries)
-                {
-                    if (Path.GetExtension(e.FullName).Equals(".jpg") ||
-                        Path.GetExtension(e.FullName).Equals(".jpeg") ||
-                        Path.GetExtension(e.FullName).Equals(".png") ||
-                        Path.GetExtension(e.FullName).Equals(".bmp"))
-                    {
-                        imgFiles.Add(e);
-                    }
-                }
-
-                //名前でソート
-                imgFiles.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
+                archive = ArchiveFactory.Open(path);
+                //archive.Entries.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
             }
-            catch (InvalidDataException ex)
+            catch (Exception e)
             {
-               messageLabel.Text = "圧縮ファイルIOエラー";
-               pictureBox1.Image = null;
+                messageLabel.Text = "ファイル展開に失敗しました";
+                pictureBox1.Image = null;
+                return;
             }
 
-            //メッセージラベル非表示
-            messageLabel.Text = "";
-           
             //一枚目の画像を表示
             lookPage = 0;
-            if (imgFiles.Count != 0)
+            if (archive.Entries.Count() != 0)
             {
+                messageLabel.Text = ""; //メッセージは何も表示しない
                 updatePictureBox();
+            }
+            else
+            {
+                messageLabel.Text = "ファイルが一つもありません";
             }
         }
 
-        private void updatePictureBox()
+        /// <summary>
+        /// 現在指定されているページの画像を読み込み、ビューワーを更新する
+        /// </summary>
+        /// <returns></returns>
+        private int updatePictureBox()
         {
-            //エラー処理
-            if (imgFiles.Count == 0)
-                return;
+            if (archive.Entries.Count() == 0)
+            {
+                return FILE_NOT_FOUND;
+            }
 
-            pictureBox1.Image = Image.FromStream(imgFiles[lookPage].Open());
-            this.Text = "Preview - " + imgFiles[lookPage].FullName;
+            //圧縮ファイル内のファイル指定
+            var entry = archive.Entries.ElementAt(lookPage);
+            this.Text = "Preview - " + entry.Key;
+            Console.WriteLine(entry.Key);
+
+            if (entry.IsDirectory)
+            {
+                Console.WriteLine("ディレクトリです");
+                return NOT_FILE; //ディレクトリは無視
+            }
+            
+            try
+            {
+                //ファイルを読み込みビューワーにセット
+                pictureBox1.Image = Image.FromStream(entry.OpenEntryStream());
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("正常な画像ファイルではありません");
+                return NOT_IMGFILE;
+            }
+
+            
+            return 0;
         }
 
+        /// <summary>
+        /// ページ戻す
+        /// </summary>
         private void back()
         {
             lookPage--;
-            if (lookPage < 0) lookPage = imgFiles.Count - 1;
+            if (lookPage < 0) lookPage = archive.Entries.Count() - 1;
 
-            updatePictureBox();
+            int result = updatePictureBox();
+            if (result == NOT_FILE || result == NOT_IMGFILE)
+            {
+                back();    
+            }
         }
 
+        /// <summary>
+        /// ページ進める
+        /// </summary>
         private void next()
         {
             lookPage++;
-            if (lookPage >= imgFiles.Count) lookPage = 0;
+            if (lookPage >= archive.Entries.Count()) lookPage = 0;
 
-            updatePictureBox();
+            int result = updatePictureBox();
+            if (result == NOT_FILE)
+            {
+                next();
+            }
         }
 
         //##############################################################################################################
@@ -155,7 +171,6 @@ namespace FileTagManager
             if (archive != null)
             {
                 archive.Dispose();
-                imgFiles.Clear();
             }
         }
     }
