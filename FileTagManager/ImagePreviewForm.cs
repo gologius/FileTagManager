@@ -171,6 +171,18 @@ namespace FileTagManager
             }
         }
 
+        private void ImagePreviewForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ( e.KeyCode == Keys.Left)
+            {
+                back();
+            }
+            else if (e.KeyCode == Keys.Right)
+            {
+                next();
+            }
+        }
+
         public void clear()
         {
             //ファイル読み込みの終了
