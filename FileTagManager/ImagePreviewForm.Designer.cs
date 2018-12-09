@@ -64,6 +64,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "ImagePreviewForm";
             this.Text = "Preview";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ImagePreviewForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
