@@ -193,7 +193,10 @@ namespace FileTagManager
             {
                 this.Text = "File Tag Manager - " + dialog.FileName;
                 currentPath = dialog.FileName;
-                decideChangeNameButton.Enabled = true; //ボタンを有効にする
+
+                //ボタンを有効にする
+                previewButton.Enabled = true;
+                decideChangeNameButton.Enabled = true; 
                 overrideButton.Enabled = true;
 
                 updateFileNameView(dialog.FileName);

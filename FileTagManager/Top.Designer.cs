@@ -170,6 +170,7 @@
             // 
             // previewButton
             // 
+            this.previewButton.Enabled = false;
             this.previewButton.Location = new System.Drawing.Point(12, 31);
             this.previewButton.Name = "previewButton";
             this.previewButton.Size = new System.Drawing.Size(195, 44);
