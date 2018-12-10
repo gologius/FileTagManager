@@ -17,7 +17,7 @@ namespace FileTagManager
     {
 
         IArchive archive = null; //圧縮ファイルの実体
-        IEnumerable<IArchiveEntry> entries = null; //画像ファイル群
+        List<IArchiveEntry> imgs = null; //画像ファイル群
         private int lookPage = 0; //現在閲覧しているページ番号
 
         const int SUCCESS = 0;
@@ -56,12 +56,14 @@ namespace FileTagManager
             {
                 //圧縮ファイルから画像ファイルのみ取り出す
                 archive = ArchiveFactory.Open(path);
-                entries = archive.Entries.Where(e =>
+                var entries = archive.Entries.Where(e =>
                     e.IsDirectory == false && (
                     Path.GetExtension(e.Key).Equals(".jpg") ||
                     Path.GetExtension(e.Key).Equals(".jpeg") ||
                     Path.GetExtension(e.Key).Equals(".png") ||
-                    Path.GetExtension(e.Key).Equals(".bmp") ));
+                    Path.GetExtension(e.Key).Equals(".bmp")));
+
+                imgs = entries.ToList();
             }
             catch (Exception e)
             {
@@ -70,9 +72,12 @@ namespace FileTagManager
                 return;
             }
 
+            //ソート
+            imgs.Sort((a, b) => { return a.Key.CompareTo(b.Key); });
+
             //一枚目の画像を表示
             lookPage = 0;
-            if (entries.Count() != 0)
+            if (imgs.Count() != 0)
             {
                 messageLabel.Text = ""; //メッセージは何も表示しない
                 updatePictureBox();
@@ -89,13 +94,13 @@ namespace FileTagManager
         /// <returns></returns>
         private int updatePictureBox()
         {
-            if (entries.Count() == 0)
+            if (imgs.Count() == 0)
             {
                 return FILE_NOT_FOUND;
             }
 
             //圧縮ファイル内のファイル指定
-            var entry = entries.ElementAt(lookPage);
+            var entry = imgs[lookPage];
             this.Text = "Preview - " + entry.Key;
             Console.WriteLine(entry.Key);
 
@@ -104,19 +109,19 @@ namespace FileTagManager
                 Console.WriteLine("ディレクトリです");
                 return NOT_FILE; //ディレクトリは無視
             }
-            
+
             try
             {
                 //ファイルを読み込みビューワーにセット
                 pictureBox1.Image = Image.FromStream(entry.OpenEntryStream());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("正常な画像ファイルではありません");
                 return NOT_IMGFILE;
             }
 
-            
+
             return 0;
         }
 
@@ -126,12 +131,12 @@ namespace FileTagManager
         private void back()
         {
             lookPage--;
-            if (lookPage < 0) lookPage = entries.Count() - 1;
+            if (lookPage < 0) lookPage = imgs.Count() - 1;
 
             int result = updatePictureBox();
             if (result == NOT_FILE || result == NOT_IMGFILE)
             {
-                back();    
+                back();
             }
         }
 
@@ -141,7 +146,7 @@ namespace FileTagManager
         private void next()
         {
             lookPage++;
-            if (lookPage >= entries.Count()) lookPage = 0;
+            if (lookPage >= imgs.Count()) lookPage = 0;
 
             int result = updatePictureBox();
             if (result == NOT_FILE)
@@ -152,7 +157,7 @@ namespace FileTagManager
 
         //##############################################################################################################
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             System.Drawing.Point sp = System.Windows.Forms.Cursor.Position;
             System.Drawing.Point cp = this.PointToClient(sp);
@@ -171,9 +176,10 @@ namespace FileTagManager
             }
         }
 
+
         private void ImagePreviewForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if ( e.KeyCode == Keys.Left)
+            if (e.KeyCode == Keys.Left)
             {
                 back();
             }
