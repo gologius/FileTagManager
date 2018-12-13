@@ -29,14 +29,8 @@ namespace FileTagManager
             string[] cmds = System.Environment.GetCommandLineArgs();
             if (cmds.Count() == 2)
             {
-                //ファイル名が紛れ込んでいる場合、それを削除する
-                string dirPath = System.IO.Path.GetDirectoryName(cmds[1]);
-
-                this.Text = "File Tag Manager - " + dirPath;
+                string dirPath = System.IO.Path.GetDirectoryName(cmds[1]); //ファイル名が紛れ込んでいる場合、それを削除する
                 currentPath = dirPath;
-                decideChangeNameButton.Enabled = true; //ボタンを有効にする
-                overrideButton.Enabled = true;
-
                 updateFileNameView(dirPath);
             }
         }
@@ -60,6 +54,12 @@ namespace FileTagManager
         {
             if (currentPath.Equals(""))
                 return;
+
+            //GUIの更新
+            this.Text = "File Tag Manager - " + currentPath;
+            previewButton.Enabled = true;
+            decideChangeNameButton.Enabled = true;
+            overrideButton.Enabled = true;
 
             //列がない(=初回)場合は列を追加する
             //元のファイル名表示(1列)+タグ数 
@@ -191,14 +191,7 @@ namespace FileTagManager
             var Result = dialog.ShowDialog();
             if (Result == CommonFileDialogResult.Ok)
             {
-                this.Text = "File Tag Manager - " + dialog.FileName;
                 currentPath = dialog.FileName;
-
-                //ボタンを有効にする
-                previewButton.Enabled = true;
-                decideChangeNameButton.Enabled = true; 
-                overrideButton.Enabled = true;
-
                 updateFileNameView(dialog.FileName);
             }
         }
