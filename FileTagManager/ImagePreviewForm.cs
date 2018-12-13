@@ -175,8 +175,7 @@ namespace FileTagManager
                 next();
             }
         }
-
-
+        
         private void ImagePreviewForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left)
