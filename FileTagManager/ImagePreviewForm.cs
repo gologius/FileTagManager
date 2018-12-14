@@ -38,23 +38,15 @@ namespace FileTagManager
         {
             string extension = Path.GetExtension(path);
 
-            //ZIPかRARファイルでなければ無視する
-            if (!extension.Equals(".zip") && !extension.Equals(".rar"))
-            {
-                messageLabel.Text = "ZIPまたはRARファイルではありません";
-                pictureBox1.Image = null;
-                return;
-            }
-
             //初期化
             if (archive != null)
             {
                 archive.Dispose();
             }
 
+            //圧縮ファイルから画像ファイルのみ取り出す
             try
             {
-                //圧縮ファイルから画像ファイルのみ取り出す
                 archive = ArchiveFactory.Open(path);
                 var entries = archive.Entries.Where(e =>
                     e.IsDirectory == false && (
@@ -68,7 +60,9 @@ namespace FileTagManager
             catch (Exception e)
             {
                 messageLabel.Text = "ファイル展開に失敗しました";
+                messageLabel.ForeColor = Color.Red;
                 pictureBox1.Image = null;
+                archive.Dispose();
                 return;
             }
 
@@ -79,12 +73,13 @@ namespace FileTagManager
             lookPage = 0;
             if (imgs.Count() != 0)
             {
-                messageLabel.Text = ""; //メッセージは何も表示しない
+                messageLabel.Text = path;
                 updatePictureBox();
             }
             else
             {
                 messageLabel.Text = "ファイルが一つもありません";
+                messageLabel.ForeColor = Color.Red;
             }
         }
 
@@ -159,6 +154,11 @@ namespace FileTagManager
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            if (archive == null)
+            {
+                return;
+            }
+
             System.Drawing.Point sp = System.Windows.Forms.Cursor.Position;
             System.Drawing.Point cp = this.PointToClient(sp);
             int x = cp.X;
