@@ -42,6 +42,7 @@ namespace FileTagManager
             if (archive != null)
             {
                 archive.Dispose();
+                archive = null;
             }
 
             //圧縮ファイルから画像ファイルのみ取り出す
@@ -63,6 +64,7 @@ namespace FileTagManager
                 messageLabel.ForeColor = Color.Red;
                 pictureBox1.Image = null;
                 archive.Dispose();
+                archive = null;
                 return;
             }
 
@@ -74,6 +76,7 @@ namespace FileTagManager
             if (imgs.Count() != 0)
             {
                 messageLabel.Text = path;
+                messageLabel.ForeColor = Color.Black;
                 updatePictureBox();
             }
             else
@@ -125,6 +128,11 @@ namespace FileTagManager
         /// </summary>
         private void back()
         {
+            if (archive == null)
+            {
+                return;
+            }
+
             lookPage--;
             if (lookPage < 0) lookPage = imgs.Count() - 1;
 
@@ -140,11 +148,16 @@ namespace FileTagManager
         /// </summary>
         private void next()
         {
+            if (archive == null)
+            {
+                return;
+            }
+
             lookPage++;
             if (lookPage >= imgs.Count()) lookPage = 0;
 
             int result = updatePictureBox();
-            if (result == NOT_FILE)
+            if (result == NOT_FILE || result == NOT_IMGFILE)
             {
                 next();
             }
@@ -154,11 +167,6 @@ namespace FileTagManager
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (archive == null)
-            {
-                return;
-            }
-
             System.Drawing.Point sp = System.Windows.Forms.Cursor.Position;
             System.Drawing.Point cp = this.PointToClient(sp);
             int x = cp.X;
