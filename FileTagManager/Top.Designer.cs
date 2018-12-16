@@ -36,6 +36,11 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DirOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ビューワーToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.非表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.戻るToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AllConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StringConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,6 +105,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileToolStripMenuItem,
+            this.ビューワーToolStripMenuItem,
             this.ConfigToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -118,9 +124,48 @@
             // DirOpenToolStripMenuItem
             // 
             this.DirOpenToolStripMenuItem.Name = "DirOpenToolStripMenuItem";
-            this.DirOpenToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.DirOpenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.DirOpenToolStripMenuItem.Text = "フォルダを開く";
             this.DirOpenToolStripMenuItem.Click += new System.EventHandler(this.DirOpenToolStripMenuItem_Click);
+            // 
+            // ビューワーToolStripMenuItem
+            // 
+            this.ビューワーToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.表示ToolStripMenuItem,
+            this.非表示ToolStripMenuItem,
+            this.nextToolStripMenuItem,
+            this.戻るToolStripMenuItem});
+            this.ビューワーToolStripMenuItem.Name = "ビューワーToolStripMenuItem";
+            this.ビューワーToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.ビューワーToolStripMenuItem.Text = "ビューワー";
+            // 
+            // 表示ToolStripMenuItem
+            // 
+            this.表示ToolStripMenuItem.Name = "表示ToolStripMenuItem";
+            this.表示ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.表示ToolStripMenuItem.Text = "表示";
+            // 
+            // 非表示ToolStripMenuItem
+            // 
+            this.非表示ToolStripMenuItem.Name = "非表示ToolStripMenuItem";
+            this.非表示ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.非表示ToolStripMenuItem.Text = "非表示";
+            // 
+            // nextToolStripMenuItem
+            // 
+            this.nextToolStripMenuItem.Name = "nextToolStripMenuItem";
+            this.nextToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Right)));
+            this.nextToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.nextToolStripMenuItem.Text = "1ページ進む";
+            this.nextToolStripMenuItem.Click += new System.EventHandler(this.nextpageToolStripMenuItem_Click);
+            // 
+            // 戻るToolStripMenuItem
+            // 
+            this.戻るToolStripMenuItem.Name = "戻るToolStripMenuItem";
+            this.戻るToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Left)));
+            this.戻るToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.戻るToolStripMenuItem.Text = "1ページ戻る";
+            this.戻るToolStripMenuItem.Click += new System.EventHandler(this.backpageToolStripMenuItem_Click);
             // 
             // ConfigToolStripMenuItem
             // 
@@ -222,6 +267,11 @@
         private System.Windows.Forms.TextBox overrideTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button previewButton;
+        private System.Windows.Forms.ToolStripMenuItem ビューワーToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 表示ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 非表示ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 戻るToolStripMenuItem;
     }
 }
 

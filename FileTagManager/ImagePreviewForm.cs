@@ -126,7 +126,7 @@ namespace FileTagManager
         /// <summary>
         /// ページ戻す
         /// </summary>
-        private void back()
+        public void back()
         {
             if (archive == null)
             {
@@ -146,7 +146,7 @@ namespace FileTagManager
         /// <summary>
         /// ページ進める
         /// </summary>
-        private void next()
+        public void next()
         {
             if (archive == null)
             {
