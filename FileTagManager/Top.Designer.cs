@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.formatText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameView = new System.Windows.Forms.DataGridView();
@@ -36,9 +36,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DirOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ビューワーToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.非表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.戻るToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,8 +75,8 @@
             // 
             this.fileNameView.AllowUserToAddRows = false;
             this.fileNameView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gainsboro;
-            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gainsboro;
+            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.fileNameView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -105,7 +105,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileToolStripMenuItem,
-            this.ビューワーToolStripMenuItem,
+            this.viewerToolStripMenuItem,
             this.ConfigToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -124,32 +124,37 @@
             // DirOpenToolStripMenuItem
             // 
             this.DirOpenToolStripMenuItem.Name = "DirOpenToolStripMenuItem";
-            this.DirOpenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.DirOpenToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.DirOpenToolStripMenuItem.Text = "フォルダを開く";
             this.DirOpenToolStripMenuItem.Click += new System.EventHandler(this.DirOpenToolStripMenuItem_Click);
             // 
-            // ビューワーToolStripMenuItem
+            // viewerToolStripMenuItem
             // 
-            this.ビューワーToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.表示ToolStripMenuItem,
-            this.非表示ToolStripMenuItem,
+            this.viewerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showViewerToolStripMenuItem,
+            this.hideViewerToolStripMenuItem,
             this.nextToolStripMenuItem,
             this.戻るToolStripMenuItem});
-            this.ビューワーToolStripMenuItem.Name = "ビューワーToolStripMenuItem";
-            this.ビューワーToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.ビューワーToolStripMenuItem.Text = "ビューワー";
+            this.viewerToolStripMenuItem.Enabled = false;
+            this.viewerToolStripMenuItem.Name = "viewerToolStripMenuItem";
+            this.viewerToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.viewerToolStripMenuItem.Text = "ビューワー";
             // 
-            // 表示ToolStripMenuItem
+            // showViewerToolStripMenuItem
             // 
-            this.表示ToolStripMenuItem.Name = "表示ToolStripMenuItem";
-            this.表示ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.表示ToolStripMenuItem.Text = "表示";
+            this.showViewerToolStripMenuItem.Name = "showViewerToolStripMenuItem";
+            this.showViewerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.O)));
+            this.showViewerToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.showViewerToolStripMenuItem.Text = "表示";
+            this.showViewerToolStripMenuItem.Click += new System.EventHandler(this.showViewerToolStripMenuItem_Click);
             // 
-            // 非表示ToolStripMenuItem
+            // hideViewerToolStripMenuItem
             // 
-            this.非表示ToolStripMenuItem.Name = "非表示ToolStripMenuItem";
-            this.非表示ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.非表示ToolStripMenuItem.Text = "非表示";
+            this.hideViewerToolStripMenuItem.Name = "hideViewerToolStripMenuItem";
+            this.hideViewerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.X)));
+            this.hideViewerToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.hideViewerToolStripMenuItem.Text = "非表示";
+            this.hideViewerToolStripMenuItem.Click += new System.EventHandler(this.hideViewerToolStripMenuItem_Click);
             // 
             // nextToolStripMenuItem
             // 
@@ -267,9 +272,9 @@
         private System.Windows.Forms.TextBox overrideTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button previewButton;
-        private System.Windows.Forms.ToolStripMenuItem ビューワーToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 表示ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 非表示ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showViewerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hideViewerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 戻るToolStripMenuItem;
     }
