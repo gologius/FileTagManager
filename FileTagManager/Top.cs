@@ -171,6 +171,26 @@ namespace FileTagManager
             }
         }
 
+        private void backPage()
+        {
+            if (imgform == null)
+            {
+                return;
+            }
+
+            imgform.back();
+        }
+
+        private void nextPage()
+        {
+            if (imgform == null)
+            {
+                return;
+            }
+
+            imgform.next();
+        }
+
         //##############################################################################################################
 
         /// <summary>
@@ -349,6 +369,16 @@ namespace FileTagManager
         private void previewButton_Click(object sender, EventArgs e)
         {
             showViewer(true);
+        }
+        
+        private void backpageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            backPage();
+        }
+        
+        private void nextpageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            nextPage();
         }
     }
 }
