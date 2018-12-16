@@ -60,6 +60,7 @@ namespace FileTagManager
             previewButton.Enabled = true;
             decideChangeNameButton.Enabled = true;
             overrideButton.Enabled = true;
+            viewerToolStripMenuItem.Enabled = true;
 
             //列がない(=初回)場合は列を追加する
             //元のファイル名表示(1列)+タグ数 
@@ -137,6 +138,12 @@ namespace FileTagManager
         /// <param name="isShow">trueなら表示，falseなら非表示</param>
         private void showViewer(bool isShow)
         {
+            //まだフォルダを開いていない状態であれば、ビューワーは開けない
+            if(currentPath.Count() == 0)
+            {
+                return;
+            }
+              
             //表示
             if (isShow)
             {
@@ -379,6 +386,16 @@ namespace FileTagManager
         private void nextpageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             nextPage();
+        }
+
+        private void showViewerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showViewer(true);
+        }
+
+        private void hideViewerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showViewer(false);
         }
     }
 }
