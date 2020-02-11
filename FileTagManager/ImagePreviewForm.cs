@@ -15,6 +15,7 @@ namespace FileTagManager
     /// </summary>
     public partial class ImagePreviewForm : Form
     {
+        TagList tagList = null;
 
         IArchive archive = null; //圧縮ファイルの実体
         List<IArchiveEntry> imgs = null; //画像ファイル群
@@ -22,21 +23,23 @@ namespace FileTagManager
 
         const int SUCCESS = 0;
         const int FILE_NOT_FOUND = 1;
-        const int NOT_FILE = 2;
+        const int IS_DIRECTORY = 2;
         const int NOT_IMGFILE = 3;
 
         public ImagePreviewForm()
         {
             InitializeComponent();
+            filenameView.Rows.Add(); //ダミー行の追加
         }
 
         /// <summary>
         /// 圧縮ファイルを指定して、ビューワー表示するための初期化をする
         /// </summary>
         /// <param name="path">圧縮ファイルパス</param>
-        public void setImages(string path)
+        public void setImages(string path, TagList tagList_)
         {
             string extension = Path.GetExtension(path);
+            tagList = tagList_;
 
             //初期化
             if (archive != null)
@@ -62,27 +65,49 @@ namespace FileTagManager
             {
                 messageLabel.Text = "ファイル展開に失敗しました";
                 messageLabel.ForeColor = Color.Red;
+                
+                //初期化してRETURN
                 pictureBox1.Image = null;
-                archive.Dispose();
-                archive = null;
+                if (archive != null)
+                {
+                    archive.Dispose();
+                    archive = null;
+                }
                 return;
             }
 
             //ソート
             imgs.Sort((a, b) => { return a.Key.CompareTo(b.Key); });
 
-            //一枚目の画像を表示
             lookPage = 0;
             if (imgs.Count() != 0)
             {
+                //一枚目の画像を表示
                 messageLabel.Text = path;
                 messageLabel.ForeColor = Color.Black;
                 updatePictureBox();
+                extractString(path);
             }
             else
             {
                 messageLabel.Text = "ファイルが一つもありません";
                 messageLabel.ForeColor = Color.Red;
+            }
+        }
+
+        /// <summary>
+        /// 抽出設定を基に，文字列を抽出する．
+        /// </summary>
+        private void extractString(string path)
+        {
+            //filename の列
+            string filename = Path.GetFileName(path);
+            filenameView.Rows[0].Cells[0].Value = filename;
+
+            //全ファイル名に対してTag数分の文字列処理をする
+            for (int j = 0; j < 3; j++) //author, title, extensionの3列分
+            {
+                filenameView.Rows[0].Cells[j+1].Value = tagList.tags[j].replace(filename); //セルに挿入
             }
         }
 
@@ -100,12 +125,11 @@ namespace FileTagManager
             //圧縮ファイル内のファイル指定
             var entry = imgs[lookPage];
             this.Text = "Preview - " + entry.Key;
-            Console.WriteLine(entry.Key);
 
             if (entry.IsDirectory)
             {
                 Console.WriteLine("ディレクトリです");
-                return NOT_FILE; //ディレクトリは無視
+                return IS_DIRECTORY; //ディレクトリは無視
             }
 
             try
@@ -118,7 +142,6 @@ namespace FileTagManager
                 Console.WriteLine("正常な画像ファイルではありません");
                 return NOT_IMGFILE;
             }
-
 
             return 0;
         }
@@ -137,7 +160,7 @@ namespace FileTagManager
             if (lookPage < 0) lookPage = imgs.Count() - 1;
 
             int result = updatePictureBox();
-            if (result == NOT_FILE || result == NOT_IMGFILE)
+            if (result == IS_DIRECTORY || result == NOT_IMGFILE)
             {
                 back();
             }
@@ -157,7 +180,7 @@ namespace FileTagManager
             if (lookPage >= imgs.Count()) lookPage = 0;
 
             int result = updatePictureBox();
-            if (result == NOT_FILE || result == NOT_IMGFILE)
+            if (result == IS_DIRECTORY || result == NOT_IMGFILE)
             {
                 next();
             }
@@ -203,6 +226,11 @@ namespace FileTagManager
             {
                 archive.Dispose();
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
