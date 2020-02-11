@@ -163,7 +163,7 @@ namespace FileTagManager
                 if (fileNameView.SelectedCells.Count > 0)
                 {
                     int select_row = fileNameView.SelectedCells[0].RowIndex; //選択しているセルの行番号取得
-                    imgform.setImages(@currentPath + @"\" + viewValue(select_row, 0));
+                    imgform.setImages(@currentPath + @"\" + viewValue(select_row, 0), tagList);
                 }
             }
             //非表示
@@ -222,8 +222,7 @@ namespace FileTagManager
                 updateFileNameView(dialog.FileName);
             }
         }
-
-
+        
         /// <summary>
         /// タグを編集するウインドウを開く．
         /// </summary>
@@ -290,7 +289,7 @@ namespace FileTagManager
                         @currentPath + @"\" + result);
 
                 }
-                catch (IOException ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(
                     "\"" + viewValue(select_index, 0) + "\" > \"" + result + "\"\n" + ex.Message,
@@ -333,7 +332,7 @@ namespace FileTagManager
                 //前回選択していた行と違う行なら
                 if (select_row != prevSelectRow)
                 {
-                    imgform.setImages(@currentPath + @"\" + viewValue(select_row, 0));
+                    imgform.setImages(@currentPath + @"\" + viewValue(select_row, 0), tagList);
                     prevSelectRow = select_row; //更新
                 }
             }
