@@ -23,16 +23,32 @@ namespace FileTagManager
         {
             InitializeComponent();
 
-            tagList = TagList.getTagList(Config.TAGFILE_PATH); //タグ設定情報を読み込み
-            
             //ファイルのD&Dにて起動されたなら（＝コマンドライン引数で、ファイルパスが設定されているなら）
+            string path = "";
             string[] cmds = System.Environment.GetCommandLineArgs();
             if (cmds.Count() == 2)
             {
-                string dirPath = System.IO.Path.GetDirectoryName(cmds[1]); //ファイル名が紛れ込んでいる場合、それを削除する
-                currentPath = dirPath;
-                updateFileNameView(dirPath);
+                path = cmds[1];
             }
+
+            init(path);
+        }
+
+        /// <summary>
+        /// 初期化関数。別ボタンからも使用するので別関数化している。
+        /// </summary>
+        private void init(string path = "")
+        {
+            tagList = TagList.getTagList(Config.TAGFILE_PATH); //タグ設定情報を読み込み
+
+            if (path == "")
+            {
+                return; 
+            }
+
+            path = System.IO.Path.GetDirectoryName(path); //ファイル名が紛れ込んでいる場合、それを削除する
+            this.currentPath = path;
+            updateFileNameView(this.currentPath);
         }
 
         /// <summary>
@@ -245,19 +261,7 @@ namespace FileTagManager
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void decideChangeNameButton_Click(object sender, EventArgs e)
-        {
-            //確認ダイアログ
-            DialogResult decide = MessageBox.Show(
-                "ファイルの名前を一括で変更しますか？",
-                "確認",
-                MessageBoxButtons.OKCancel,
-                MessageBoxIcon.None,
-                MessageBoxDefaultButton.Button2);
-            if (decide == DialogResult.Cancel)
-            {
-                return;
-            }
-
+        {            
             //ビューワーを一回落とす(ファイルアクセス中に名前を変更できない)
             showViewer(false);
 
@@ -396,5 +400,49 @@ namespace FileTagManager
         {
             showViewer(false);
         }
+
+        /// <summary>
+        /// ウインドウにファイルをD&Dした際の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Top_DragDrop(object sender, DragEventArgs e)
+        {
+            Console.WriteLine("DDされたよ");
+            string[] fileName = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            this.init(fileName[0]); //D6Dされたフォルダ（ファイル）を元に、再表示する
+        }
+
+        private void Top_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            //確認ダイアログ
+            DialogResult decide = MessageBox.Show(
+                "現在の編集内容をすべてリセットしますか？",
+                "確認",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.None,
+                MessageBoxDefaultButton.Button2);
+            if (decide == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            this.init();
+            updateFileNameView(this.currentPath); //現在保持しているディレクトリで再表示
+        }
+
+      
     }
 }
