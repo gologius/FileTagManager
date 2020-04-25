@@ -261,7 +261,19 @@ namespace FileTagManager
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void decideChangeNameButton_Click(object sender, EventArgs e)
-        {            
+        {
+            //確認ダイアログ
+            DialogResult decide = MessageBox.Show(
+                "ファイルの名前を一括で変更しますか？",
+                "確認",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.None,
+                MessageBoxDefaultButton.Button2);
+            if (decide == DialogResult.Cancel)
+            {
+                return;
+            }
+
             //ビューワーを一回落とす(ファイルアクセス中に名前を変更できない)
             showViewer(false);
 
@@ -349,18 +361,6 @@ namespace FileTagManager
         /// <param name="e"></param>
         private void overrideButton_Click(object sender, EventArgs e)
         {
-            //確認ダイアログ
-            DialogResult decide = MessageBox.Show(
-                "タグを一括で設定しますか？",
-                "確認",
-                MessageBoxButtons.OKCancel,
-                MessageBoxIcon.None,
-                MessageBoxDefaultButton.Button2);
-            if (decide == DialogResult.Cancel)
-            {
-                return;
-            }
-
             //選択されているセルを抽出
             string override_text = overrideTextBox.Text;
             foreach (DataGridViewCell cell in fileNameView.SelectedCells)
