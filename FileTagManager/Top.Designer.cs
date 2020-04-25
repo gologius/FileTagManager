@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.formatText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameView = new System.Windows.Forms.DataGridView();
@@ -50,6 +50,7 @@
             this.previewButton = new System.Windows.Forms.Button();
             this.resetButton = new System.Windows.Forms.Button();
             this.autoAuthorSetButton = new System.Windows.Forms.Button();
+            this.allChangeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileNameView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -57,7 +58,7 @@
             // formatText
             // 
             this.formatText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.formatText.Location = new System.Drawing.Point(12, 557);
+            this.formatText.Location = new System.Drawing.Point(12, 492);
             this.formatText.Name = "formatText";
             this.formatText.Size = new System.Drawing.Size(195, 19);
             this.formatText.TabIndex = 3;
@@ -67,7 +68,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 542);
+            this.label1.Location = new System.Drawing.Point(12, 477);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(135, 12);
             this.label1.TabIndex = 7;
@@ -77,8 +78,8 @@
             // 
             this.fileNameView.AllowUserToAddRows = false;
             this.fileNameView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gainsboro;
-            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Gainsboro;
+            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.fileNameView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -95,7 +96,7 @@
             // 
             this.decideChangeNameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.decideChangeNameButton.Enabled = false;
-            this.decideChangeNameButton.Location = new System.Drawing.Point(12, 582);
+            this.decideChangeNameButton.Location = new System.Drawing.Point(12, 517);
             this.decideChangeNameButton.Name = "decideChangeNameButton";
             this.decideChangeNameButton.Size = new System.Drawing.Size(195, 23);
             this.decideChangeNameButton.TabIndex = 10;
@@ -255,12 +256,24 @@
             this.autoAuthorSetButton.UseVisualStyleBackColor = true;
             this.autoAuthorSetButton.Click += new System.EventHandler(this.autoAuthorSetButton_Click);
             // 
+            // allChangeButton
+            // 
+            this.allChangeButton.Enabled = false;
+            this.allChangeButton.Location = new System.Drawing.Point(14, 546);
+            this.allChangeButton.Name = "allChangeButton";
+            this.allChangeButton.Size = new System.Drawing.Size(193, 60);
+            this.allChangeButton.TabIndex = 24;
+            this.allChangeButton.Text = "全ての行のファイル名を変更";
+            this.allChangeButton.UseVisualStyleBackColor = true;
+            this.allChangeButton.Click += new System.EventHandler(this.allChangeButton_Click);
+            // 
             // Top
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1096, 617);
+            this.Controls.Add(this.allChangeButton);
             this.Controls.Add(this.autoAuthorSetButton);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.previewButton);
@@ -307,6 +320,7 @@
         private System.Windows.Forms.ToolStripMenuItem 戻るToolStripMenuItem;
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.Button autoAuthorSetButton;
+        private System.Windows.Forms.Button allChangeButton;
     }
 }
 
