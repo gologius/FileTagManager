@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.formatText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameView = new System.Windows.Forms.DataGridView();
@@ -49,6 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.previewButton = new System.Windows.Forms.Button();
             this.resetButton = new System.Windows.Forms.Button();
+            this.autoAuthorSetButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileNameView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -76,8 +77,8 @@
             // 
             this.fileNameView.AllowUserToAddRows = false;
             this.fileNameView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
-            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gainsboro;
+            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.fileNameView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -235,14 +236,24 @@
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(14, 152);
+            this.resetButton.Location = new System.Drawing.Point(109, 151);
             this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(75, 23);
+            this.resetButton.Size = new System.Drawing.Size(98, 23);
             this.resetButton.TabIndex = 22;
             this.resetButton.TabStop = false;
             this.resetButton.Text = "リセット";
             this.resetButton.UseVisualStyleBackColor = true;
             this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            // 
+            // autoAuthorSetButton
+            // 
+            this.autoAuthorSetButton.Location = new System.Drawing.Point(12, 151);
+            this.autoAuthorSetButton.Name = "autoAuthorSetButton";
+            this.autoAuthorSetButton.Size = new System.Drawing.Size(91, 23);
+            this.autoAuthorSetButton.TabIndex = 23;
+            this.autoAuthorSetButton.Text = "自動著者セット";
+            this.autoAuthorSetButton.UseVisualStyleBackColor = true;
+            this.autoAuthorSetButton.Click += new System.EventHandler(this.autoAuthorSetButton_Click);
             // 
             // Top
             // 
@@ -250,6 +261,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1096, 617);
+            this.Controls.Add(this.autoAuthorSetButton);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.previewButton);
             this.Controls.Add(this.label2);
@@ -294,6 +306,7 @@
         private System.Windows.Forms.ToolStripMenuItem nextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 戻るToolStripMenuItem;
         private System.Windows.Forms.Button resetButton;
+        private System.Windows.Forms.Button autoAuthorSetButton;
     }
 }
 

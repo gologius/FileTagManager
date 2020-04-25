@@ -56,10 +56,21 @@ namespace FileTagManager
         /// </summary>
         /// <param name="rowIndex"></param>
         /// <param name="colIndex"></param>
-        /// <returns></returns>
-        private string viewValue(int rowIndex, int colIndex)
+        /// <returns>getValue</returns>
+        private string getViewValue(int rowIndex, int colIndex)
         {
             return fileNameView.Rows[rowIndex].Cells[colIndex].Value.ToString();
+        }
+
+        /// <summary>
+        /// fileNameViewから値を得るためのラッパー
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <param name="colIndex"></param>
+        /// <returns></returns>
+        private void setValue(int rowIndex, int colIndex, string value)
+        {
+            fileNameView.Rows[rowIndex].Cells[colIndex].Value = value;
         }
 
         /// <summary>
@@ -179,7 +190,7 @@ namespace FileTagManager
                 if (fileNameView.SelectedCells.Count > 0)
                 {
                     int select_row = fileNameView.SelectedCells[0].RowIndex; //選択しているセルの行番号取得
-                    imgform.setImages(@currentPath + @"\" + viewValue(select_row, 0), tagList);
+                    imgform.setImages(@currentPath + @"\" + getViewValue(select_row, 0), tagList);
                 }
             }
             //非表示
@@ -293,7 +304,7 @@ namespace FileTagManager
                 //%で囲んだタグ名を，文字列に置き換える
                 foreach (Tag tag in tagList.tags)
                 {
-                    string cell_string = viewValue(select_index, tagList.getTagIndex(tag.name) + 1); //+1は元のファイル名の分
+                    string cell_string = getViewValue(select_index, tagList.getTagIndex(tag.name) + 1); //+1は元のファイル名の分
                     result = result.Replace("%" + tag.name + "%", cell_string);
                 }
 
@@ -301,14 +312,14 @@ namespace FileTagManager
                 {
                     //実際にファイル名を変更する
                     System.IO.File.Move(
-                        @currentPath + @"\" + viewValue(select_index, 0),
+                        @currentPath + @"\" + getViewValue(select_index, 0),
                         @currentPath + @"\" + result);
 
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(
-                    "\"" + viewValue(select_index, 0) + "\" > \"" + result + "\"\n" + ex.Message,
+                    "\"" + getViewValue(select_index, 0) + "\" > \"" + result + "\"\n" + ex.Message,
                     "ファイル名変更時エラー",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error,
@@ -348,7 +359,7 @@ namespace FileTagManager
                 //前回選択していた行と違う行なら
                 if (select_row != prevSelectRow)
                 {
-                    imgform.setImages(@currentPath + @"\" + viewValue(select_row, 0), tagList);
+                    imgform.setImages(@currentPath + @"\" + getViewValue(select_row, 0), tagList);
                     prevSelectRow = select_row; //更新
                 }
             }
@@ -443,6 +454,25 @@ namespace FileTagManager
             updateFileNameView(this.currentPath); //現在保持しているディレクトリで再表示
         }
 
-      
+        private void autoAuthorSetButton_Click(object sender, EventArgs e)
+        {
+            autoAuthorSet();
+        }
+
+        /// <summary>
+        /// 自動著者セット
+        /// 先頭行の著者を、全ての行に適用する
+        /// </summary>
+        private void autoAuthorSet()
+        {
+            string author = getViewValue(0, 1);
+            
+            /*
+            foreach (int select_index in fileNameView.RowCount)
+            {
+
+            }
+            */
+        }
     }
 }
