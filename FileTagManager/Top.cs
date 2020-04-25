@@ -43,7 +43,7 @@ namespace FileTagManager
 
             if (path == "")
             {
-                return; 
+                return;
             }
 
             path = System.IO.Path.GetDirectoryName(path); //ファイル名が紛れ込んでいる場合、それを削除する
@@ -166,11 +166,11 @@ namespace FileTagManager
         private void showViewer(bool isShow)
         {
             //まだフォルダを開いていない状態であれば、ビューワーは開けない
-            if(currentPath.Count() == 0)
+            if (currentPath.Count() == 0)
             {
                 return;
             }
-              
+
             //表示
             if (isShow)
             {
@@ -249,7 +249,7 @@ namespace FileTagManager
                 updateFileNameView(dialog.FileName);
             }
         }
-        
+
         /// <summary>
         /// タグを編集するウインドウを開く．
         /// </summary>
@@ -391,12 +391,12 @@ namespace FileTagManager
         {
             showViewer(true);
         }
-        
+
         private void backpageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             backPage();
         }
-        
+
         private void nextpageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             nextPage();
@@ -466,13 +466,11 @@ namespace FileTagManager
         private void autoAuthorSet()
         {
             string author = getViewValue(0, 1);
-            
-            /*
-            foreach (int select_index in fileNameView.RowCount)
-            {
 
+            for (int i = 0; i < fileNameView.RowCount; i++)
+            {
+                setValue(i, 1, author);
             }
-            */
         }
     }
 }
