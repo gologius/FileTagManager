@@ -86,6 +86,7 @@ namespace FileTagManager
             this.Text = "File Tag Manager - " + currentPath;
             previewButton.Enabled = true;
             decideChangeNameButton.Enabled = true;
+            allChangeButton.Enabled = true;
             overrideButton.Enabled = true;
             viewerToolStripMenuItem.Enabled = true;
 
@@ -275,7 +276,7 @@ namespace FileTagManager
         {
             //確認ダイアログ
             DialogResult decide = MessageBox.Show(
-                "ファイルの名前を一括で変更しますか？",
+                "選択されている行のファイル名を一括で変更しますか？",
                 "確認",
                 MessageBoxButtons.OKCancel,
                 MessageBoxIcon.None,
@@ -285,9 +286,6 @@ namespace FileTagManager
                 return;
             }
 
-            //ビューワーを一回落とす(ファイルアクセス中に名前を変更できない)
-            showViewer(false);
-
             //選択されているセルから，行番号を重複がないように抽出する
             List<int> indices = new List<int>();
             foreach (DataGridViewCell c in fileNameView.SelectedCells)
@@ -295,6 +293,60 @@ namespace FileTagManager
                 indices.Add(c.RowIndex);
             }
             indices = indices.Distinct().ToList<int>(); //重複の削除
+
+            //実際に更新する
+            updateFileName(indices);
+
+            //確認ダイアログ
+            MessageBox.Show(
+                "変更が終了しました",
+                "確認",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.None,
+                MessageBoxDefaultButton.Button2);
+        }
+
+        private void allChangeButton_Click(object sender, EventArgs e)
+        {
+            //確認ダイアログ
+            DialogResult decide = MessageBox.Show(
+                "全てのファイル名を一括で変更しますか？",
+                "確認",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.None,
+                MessageBoxDefaultButton.Button2);
+            if (decide == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            //全ての行番号が入ったリストを作成
+            List<int> indices = new List<int>();
+            for (int i = 0; i < fileNameView.RowCount; i++)
+            {
+                indices.Add(i);
+            }
+
+            //実際に更新する
+            updateFileName(indices);
+
+            //確認ダイアログ
+            MessageBox.Show(
+                "変更が終了しました",
+                "確認",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.None,
+                MessageBoxDefaultButton.Button2);
+        }
+
+        /// <summary>
+        /// 指定された行番号のファイル名を書き換える
+        /// </summary>
+        /// <param name="indices">行番号リスト</param>
+        private void updateFileName(List<int> indices)
+        {
+            //ビューワーを一回落とす(ファイルアクセス中に名前を変更できない)
+            showViewer(false);
 
             //選択された行だけ対象に，文字を置換していく
             foreach (int select_index in indices)
@@ -326,13 +378,6 @@ namespace FileTagManager
                     MessageBoxDefaultButton.Button2);
                 }
             }
-            //確認ダイアログ
-            MessageBox.Show(
-                "変更が終了しました",
-                "確認",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.None,
-                MessageBoxDefaultButton.Button2);
 
             //ファイルのパスが変わるので，表示を更新する
             updateFileNameView(currentPath);
@@ -472,5 +517,7 @@ namespace FileTagManager
                 setValue(i, 1, author);
             }
         }
+
+
     }
 }
