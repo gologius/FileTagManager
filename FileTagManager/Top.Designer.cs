@@ -3,7 +3,7 @@
     partial class Top
     {
         /// <summary>
-        /// 必要なデザイナー変数です。
+        /// 必要なデザイナー変数です。 
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
