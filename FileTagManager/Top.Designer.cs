@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.formatText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameView = new System.Windows.Forms.DataGridView();
@@ -78,8 +78,8 @@
             // 
             this.fileNameView.AllowUserToAddRows = false;
             this.fileNameView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Gainsboro;
-            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            this.fileNameView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.fileNameView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -202,7 +202,7 @@
             this.overrideButton.Enabled = false;
             this.overrideButton.Location = new System.Drawing.Point(12, 122);
             this.overrideButton.Name = "overrideButton";
-            this.overrideButton.Size = new System.Drawing.Size(195, 23);
+            this.overrideButton.Size = new System.Drawing.Size(195, 51);
             this.overrideButton.TabIndex = 17;
             this.overrideButton.Text = "選択したセルのタグを一括設定";
             this.overrideButton.UseVisualStyleBackColor = true;
@@ -237,9 +237,9 @@
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(109, 151);
+            this.resetButton.Location = new System.Drawing.Point(109, 179);
             this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(98, 23);
+            this.resetButton.Size = new System.Drawing.Size(98, 51);
             this.resetButton.TabIndex = 22;
             this.resetButton.TabStop = false;
             this.resetButton.Text = "リセット";
@@ -248,9 +248,9 @@
             // 
             // autoAuthorSetButton
             // 
-            this.autoAuthorSetButton.Location = new System.Drawing.Point(12, 151);
+            this.autoAuthorSetButton.Location = new System.Drawing.Point(12, 179);
             this.autoAuthorSetButton.Name = "autoAuthorSetButton";
-            this.autoAuthorSetButton.Size = new System.Drawing.Size(91, 23);
+            this.autoAuthorSetButton.Size = new System.Drawing.Size(91, 51);
             this.autoAuthorSetButton.TabIndex = 23;
             this.autoAuthorSetButton.Text = "自動著者セット";
             this.autoAuthorSetButton.UseVisualStyleBackColor = true;
