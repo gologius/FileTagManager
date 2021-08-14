@@ -20,7 +20,7 @@
             base.Dispose(disposing);
         }
 
-        #region Windows フォーム デザイナーで生成されたコード 
+        #region Windows フォーム デザイナーで生成されたコード
 
         /// <summary>
         /// デザイナー サポートに必要なメソッドです。このメソッドの内容を
