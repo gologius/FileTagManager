@@ -257,6 +257,7 @@
             // 
             // allChangeButton
             // 
+            this.allChangeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.allChangeButton.Enabled = false;
             this.allChangeButton.Location = new System.Drawing.Point(14, 546);
             this.allChangeButton.Name = "allChangeButton";
